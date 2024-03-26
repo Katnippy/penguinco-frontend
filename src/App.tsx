@@ -1,84 +1,21 @@
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+import { IStore } from '../common/types';
+import storeService from '../services/stores';
 
 export default function App() {
-  const stores = [
-    {
-      id: 1,
-      name: 'PenguinCo Shrewsbury',
-      address: 'Shrewsbury, West Midlands, England',
-      stock: [
-        {
-          id: 1,
-          name: 'Pingu',
-          stock: 10,
-        },
-        {
-          id: 2,
-          name: 'Pinga',
-          stock: 5,
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'PenguinCo Birmingham Superstore',
-      address: 'Birmingham, West Midlands, England',
-      stock: [
-        {
-          id: 1,
-          name: 'Pingu',
-          stock: 47,
-        },
-        {
-          id: 2,
-          name: 'Pinga',
-          stock: 33,
-        },
-        {
-          id: 3,
-          name: 'Tux',
-          stock: 3,
-        },
-        {
-          id: 4,
-          name: 'Tuxedosam',
-          stock: 14,
-        },
-        {
-          id: 5,
-          name: 'Suica',
-          stock: 10,
-        },
-        {
-          id: 6,
-          name: 'Donpen',
-          stock: 8,
-        },
-      ]
-    },
-    {
-      id: 3,
-      name: 'PenguinCo Islington',
-      address: 'Islington, London, England',
-      stock: [
-        {
-          id: 1,
-          name: 'Pingu',
-          stock: 23,
-        },
-        {
-          id: 2,
-          name: 'Pinga',
-          stock: 8,
-        },
-        {
-          id: 4,
-          name: 'Tuxedosam',
-          stock: 1,
-        },
-      ],
-    },
-  ];
+  const [stores, setStores] = useState<Array<IStore>>([]);
+
+  useEffect(() => {
+    void (async function hook() {
+      try {
+        const initialStores = await storeService.read();
+        setStores(initialStores);
+      } catch (e) {
+        console.error('Error getting data: ', e);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -101,8 +38,8 @@ export default function App() {
                 <ul>
                   {store.stock.map((item) => (
                     <li key={item.id}>
-                      {item.name}: <i>{item.stock} unit{item.stock !== 1 ?
-                        's' : ''}</i>
+                      {item.name}: <i>{item.quantity} unit{item.quantity !== 1
+                        ? 's' : ''}</i>
                     </li>
                   ))}
                 </ul>

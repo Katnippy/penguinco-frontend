@@ -1,0 +1,27 @@
+import axios from 'axios';
+
+import { IStore } from '../common/types';
+
+const baseUrl = 'http://localhost:3001/stores';
+
+// async function create(newObject) {
+//   const res = await axios.post(baseUrl, newObject);
+//   return res.data;
+// }
+
+async function read() {
+  const res = await axios.get<Array<IStore>>(baseUrl);
+  return res.data;
+}
+
+// async function update(id, store) {
+//   const res = await axios.put(`${baseUrl}/${id}`, store);
+//   return res.data;
+// }
+
+// async function destroy(id) {
+//   await axios.delete(`${baseUrl}/${id}`);
+// }
+
+
+export default { read };
