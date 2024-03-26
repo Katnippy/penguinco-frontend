@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import { IStore } from '../common/types';
-import storeService from '../services/stores';
+import { IStore } from '../../common/types';
+import storeService from '../../services/stores';
 
-export default function App() {
+export default function Index() {
   const [stores, setStores] = useState<Array<IStore>>([]);
 
   useEffect(() => {
