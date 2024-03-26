@@ -38,5 +38,6 @@ module.exports = {
     'arrow-spacing': ['error', { before: true, after: true }],
     'no-console': 0,
     '@stylistic/arrow-parens': 'error',
+    'react/react-in-jsx-scope': 'off'
   },
 };
