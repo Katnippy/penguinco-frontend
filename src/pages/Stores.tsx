@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { IStore } from '../../common/types';
 import storeService from '../../services/stores';
 
-export default function Index() {
+export default function Stores() {
   const [stores, setStores] = useState<Array<IStore>>([]);
 
   useEffect(() => {
@@ -45,7 +47,9 @@ export default function Index() {
                 </ul>
               </td>
               <td>
-                <button>Manage</button>
+                <Link to={`/stores/${store.id}`}>
+                  <button type="button">Manage</button>
+                </Link>
               </td>
             </tr>
           ))}
