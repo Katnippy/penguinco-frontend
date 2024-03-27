@@ -26,6 +26,11 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
   plugins: ['@typescript-eslint', 'react', '@stylistic'],
   rules: {
     indent: ['error', 2],
