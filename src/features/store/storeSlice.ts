@@ -15,9 +15,15 @@ const initialState: StoreState = {
   error: '',
 };
 
+// ? Inconsistent terminology (i.e. get = HTTP, but update = CRUD)?
 export const getStore =
   createAsyncThunk('store/getStore', async (id: number) => {
     return await storeService.readById(id);
+  });
+
+export const updateStore =
+  createAsyncThunk('store/updateStore', async (storeToUpdate: IStore) => {
+    return await storeService.update(storeToUpdate.id, storeToUpdate);
   });
 
 const storesSlice = createSlice({
@@ -25,17 +31,29 @@ const storesSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getStore.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(getStore.fulfilled, (state, action) => {
-      state.loading = false;
-      state.store = action.payload;
-    });
-    builder.addCase(getStore.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message || 'Error getting data.';
-    });
+    builder
+      .addCase(getStore.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getStore.fulfilled, (state, action) => {
+        state.loading = false;
+        state.store = action.payload;
+      })
+      .addCase(getStore.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Error getting data.';
+      })
+      .addCase(updateStore.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateStore.fulfilled, (state, action) => {
+        state.loading = false;
+        state.store = action.payload;
+      })
+      .addCase(updateStore.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Error updating data.';
+      });
   },
 });
 

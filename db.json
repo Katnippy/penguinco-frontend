@@ -1,7 +1,7 @@
 {
   "stores": [
     {
-      "id": 1,
+      "id": "1",
       "name": "PenguinCo Shrewsbury",
       "address": "Shrewsbury, West Midlands, England",
       "stock": [
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "PenguinCo Birmingham Superstore",
       "address": "Birmingham, West Midlands, England",
       "stock": [
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "PenguinCo Islington",
       "address": "Islington, London, England",
       "stock": [

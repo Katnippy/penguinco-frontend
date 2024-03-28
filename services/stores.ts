@@ -19,14 +19,14 @@ async function readById(id: number) {
   return res.data;
 }
 
-// async function update(id, store) {
-//   const res = await axios.put(`${baseUrl}/${id}`, store);
-//   return res.data;
-// }
+async function update(id: number, store: IStore) {
+  const res = await axios.put(`${baseUrl}/${id}`, store);
+  return res.data;
+}
 
 // async function destroy(id) {
 //   await axios.delete(`${baseUrl}/${id}`);
 // }
 
 
-export default { readAll, readById };
+export default { readAll, readById, update };

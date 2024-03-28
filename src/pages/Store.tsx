@@ -3,7 +3,8 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { getStore } from '../features/store/storeSlice';
+import { getStore, updateStore } from '../features/store/storeSlice';
+import { IStore } from '../../common/types';
 
 export default function Store() {
   const params = useParams<{ id: string }>();
@@ -14,6 +15,16 @@ export default function Store() {
   useEffect(() => {
     dispatch(getStore(+params.id!));
   }, []);
+
+  function incrementStock(itemId: number) {
+    const storeToUpdate: IStore = {
+      ...store,
+      stock: [...store.stock.map((item) => item.id === itemId ?
+        { ...item, quantity: item.quantity + 1 } : item)]
+    };
+
+    dispatch(updateStore(storeToUpdate));
+  }
 
   return (
     <>
@@ -37,7 +48,9 @@ export default function Store() {
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.quantity}</td>
-                  <td>+</td>
+                  <td>
+                    <button onClick={() => incrementStock(item.id)}>+</button>
+                  </td>
                   <td>-</td>
                   <td>🗑️</td>
                 </tr>
