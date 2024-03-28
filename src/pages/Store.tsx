@@ -16,6 +16,7 @@ export default function Store() {
     dispatch(getStore(+params.id!));
   }, []);
 
+  // TODO: Add maximum stock limit of 99.
   function incrementStock(itemId: number) {
     const storeToUpdate: IStore = {
       ...store,
@@ -26,11 +27,21 @@ export default function Store() {
     dispatch(updateStore(storeToUpdate));
   }
 
+  // TODO: Add minimum stock limit of 0.
   function decrementStock(itemId: number) {
     const storeToUpdate: IStore = {
       ...store,
       stock: [...store.stock.map((item) => item.id === itemId ?
         { ...item, quantity: item.quantity - 1 } : item)]
+    };
+
+    dispatch(updateStore(storeToUpdate));
+  }
+
+  function deleteStock(itemId: number) {
+    const storeToUpdate: IStore = {
+      ...store,
+      stock: [...store.stock.filter((item) => item.id !== itemId)]
     };
 
     dispatch(updateStore(storeToUpdate));
@@ -64,7 +75,9 @@ export default function Store() {
                   <td>
                     <button onClick={() => decrementStock(item.id)}>-</button>
                   </td>
-                  <td>🗑️</td>
+                  <td>
+                    <button onClick={() => deleteStock(item.id)}>🗑️</button>
+                  </td>
                 </tr>
               ))}
             </tbody>
