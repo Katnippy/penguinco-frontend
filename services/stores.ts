@@ -14,7 +14,7 @@ async function readAll() {
   return res.data;
 }
 
-async function readById(id: string) {
+async function readById(id: number) {
   const res = await axios.get<IStore>(`${baseUrl}/${id}`);
   return res.data;
 }

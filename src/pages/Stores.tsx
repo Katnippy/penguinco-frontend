@@ -44,7 +44,7 @@ export default function Stores() {
                   </ul>
                 </td>
                 <td>
-                  <Link to={`/stores/${store.id}`}>
+                  <Link to={`/stores/${store.id.toString()}`}>
                     <button type="button">Manage</button>
                   </Link>
                 </td>

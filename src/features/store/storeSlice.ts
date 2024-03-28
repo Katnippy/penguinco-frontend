@@ -16,7 +16,7 @@ const initialState: StoreState = {
 };
 
 export const getStore =
-  createAsyncThunk('store/getStore', async (id: string) => {
+  createAsyncThunk('store/getStore', async (id: number) => {
     return await storeService.readById(id);
   });
 

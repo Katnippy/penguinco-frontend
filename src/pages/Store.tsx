@@ -12,7 +12,7 @@ export default function Store() {
   const { loading, store, error } = useAppSelector((state) => state.store);
 
   useEffect(() => {
-    dispatch(getStore(params.id!));
+    dispatch(getStore(+params.id!));
   }, []);
 
   return (
