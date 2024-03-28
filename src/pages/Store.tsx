@@ -26,6 +26,16 @@ export default function Store() {
     dispatch(updateStore(storeToUpdate));
   }
 
+  function decrementStock(itemId: number) {
+    const storeToUpdate: IStore = {
+      ...store,
+      stock: [...store.stock.map((item) => item.id === itemId ?
+        { ...item, quantity: item.quantity - 1 } : item)]
+    };
+
+    dispatch(updateStore(storeToUpdate));
+  }
+
   return (
     <>
       {loading && <h2>Loading...</h2>}
@@ -51,7 +61,9 @@ export default function Store() {
                   <td>
                     <button onClick={() => incrementStock(item.id)}>+</button>
                   </td>
-                  <td>-</td>
+                  <td>
+                    <button onClick={() => decrementStock(item.id)}>-</button>
+                  </td>
                   <td>🗑️</td>
                 </tr>
               ))}
