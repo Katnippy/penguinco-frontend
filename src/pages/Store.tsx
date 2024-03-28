@@ -4,9 +4,12 @@ import { useParams } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getStore, updateStore } from '../features/store/storeSlice';
-import { IStore } from '../../common/types';
+import { IStore } from '../common/types';
 
 export default function Store() {
+  const MIN_QUANTITY = 0;
+  const MAX_QUANTITY = 99;
+
   const params = useParams<{ id: string }>();
 
   const dispatch = useAppDispatch();
@@ -16,7 +19,6 @@ export default function Store() {
     dispatch(getStore(+params.id!));
   }, []);
 
-  // TODO: Add maximum stock limit of 99.
   function incrementStock(itemId: number) {
     const storeToUpdate: IStore = {
       ...store,
@@ -27,7 +29,6 @@ export default function Store() {
     dispatch(updateStore(storeToUpdate));
   }
 
-  // TODO: Add minimum stock limit of 0.
   function decrementStock(itemId: number) {
     const storeToUpdate: IStore = {
       ...store,
@@ -70,10 +71,16 @@ export default function Store() {
                   <td>{item.name}</td>
                   <td>{item.quantity}</td>
                   <td>
-                    <button onClick={() => incrementStock(item.id)}>+</button>
+                    <button onClick={() => incrementStock(item.id)}
+                      disabled={item.quantity === MAX_QUANTITY ? true : false}>
+                        +
+                    </button>
                   </td>
                   <td>
-                    <button onClick={() => decrementStock(item.id)}>-</button>
+                    <button onClick={() => decrementStock(item.id)}
+                      disabled={item.quantity === MIN_QUANTITY ? true : false}>
+                        -
+                    </button>
                   </td>
                   <td>
                     <button onClick={() => deleteStock(item.id)}>🗑️</button>

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { IStore } from '../../../common/types';
-import storeService from '../../../services/stores';
+import { IStore } from '../../common/types';
+import storeService from '../../services/stores';
 
 type StoresState = {
   loading: boolean,
