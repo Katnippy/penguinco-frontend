@@ -9,8 +9,13 @@ const baseUrl = 'http://localhost:3001/stores';
 //   return res.data;
 // }
 
-async function read() {
+async function readAll() {
   const res = await axios.get<Array<IStore>>(baseUrl);
+  return res.data;
+}
+
+async function readById(id: string) {
+  const res = await axios.get<IStore>(`${baseUrl}/${id}`);
   return res.data;
 }
 
@@ -24,4 +29,4 @@ async function read() {
 // }
 
 
-export default { read };
+export default { readAll, readById };

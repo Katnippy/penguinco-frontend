@@ -3,35 +3,36 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { IStore } from '../../../common/types';
 import storeService from '../../../services/stores';
 
-type StoresState = {
+type StoreState = {
   loading: boolean,
-  stores: Array<IStore>,
+  store: IStore,
   error: string,
 }
 
-const initialState: StoresState = {
+const initialState: StoreState = {
   loading: false,
-  stores: [],
+  store: {}, // ! Needs to be a nullable type.
   error: '',
 };
 
-export const getStores = createAsyncThunk('stores/getStores', async () => {
-  return await storeService.readAll();
-});
+export const getStore =
+  createAsyncThunk('store/getStore', async (id: string) => {
+    return await storeService.readById(id);
+  });
 
 const storesSlice = createSlice({
   name: 'stores',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getStores.pending, (state) => {
+    builder.addCase(getStore.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(getStores.fulfilled, (state, action) => {
+    builder.addCase(getStore.fulfilled, (state, action) => {
       state.loading = false;
-      state.stores = action.payload;
+      state.store = action.payload;
     });
-    builder.addCase(getStores.rejected, (state, action) => {
+    builder.addCase(getStore.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message || 'Error getting data.';
     });

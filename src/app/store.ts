@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import storesReducer from '../features/stores/storesSlice';
+import storeReducer from '../features/store/storeSlice';
 
 export const store = configureStore({
   reducer: {
     stores: storesReducer,
+    store: storeReducer,
   }
 });
 
