@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getStore, updateStore } from '../features/store/storeSlice';
@@ -55,6 +56,9 @@ export default function Store() {
       {!loading && Object.keys(store).length ? (
         <>
           <h1>Manage {store.name}</h1>
+          <Link to={'/stores'}>
+            <button>Return</button>
+          </Link>
           <table>
             <thead>
               <tr>
