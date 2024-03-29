@@ -13,6 +13,7 @@ export default function Stores() {
     dispatch(getStores());
   }, []);
 
+  // TODO: Add something when no stock.
   return (
     <>
       <h1>PenguinCo Stores</h1>
