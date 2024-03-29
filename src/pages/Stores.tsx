@@ -13,7 +13,6 @@ export default function Stores() {
     dispatch(getStores());
   }, []);
 
-  // TODO: Add something when no stock.
   return (
     <>
       <h1>PenguinCo Stores</h1>
@@ -36,12 +35,12 @@ export default function Stores() {
                 <td>{store.address}</td>
                 <td>
                   <ul>
-                    {store.stock.map((item) => (
+                    {store.stock.length ? store.stock.map((item) => (
                       <li key={item.id}>
                         {item.name}: <i>{item.quantity} unit{item.quantity
                           !== 1 ? 's' : ''}</i>
                       </li>
-                    ))}
+                    )) : 'No stock...'}
                   </ul>
                 </td>
                 <td>

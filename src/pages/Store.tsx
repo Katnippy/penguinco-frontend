@@ -10,6 +10,7 @@ import { IStore } from '../common/types';
 export default function Store() {
   const MIN_QUANTITY = 0;
   const MAX_QUANTITY = 99;
+  const NUM_OF_COLS = 5;
 
   const params = useParams<{ id: string }>();
 
@@ -94,7 +95,6 @@ export default function Store() {
     setNewStock({ ...newStock, quantity: +event.target.value });
   }
 
-  // TODO: Add something when no stock.
   return (
     <>
       {loading && <h2>Loading...</h2>}
@@ -116,7 +116,7 @@ export default function Store() {
               </tr>
             </thead>
             <tbody>
-              {store.stock.map((item) => (
+              {store.stock.length ? store.stock.map((item) => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.quantity}</td>
@@ -136,7 +136,7 @@ export default function Store() {
                     <button onClick={() => deleteStock(item.id)}>🗑️</button>
                   </td>
                 </tr>
-              ))}
+              )) : <tr><td colSpan={NUM_OF_COLS}>No stock...</td></tr>}
             </tbody>
           </table>
           <h2>New stock</h2>
