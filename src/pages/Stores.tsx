@@ -20,10 +20,28 @@ export default function Stores() {
     setShownStores(stores);
   }, [stores]);
 
+  const [filterBy, setFilterBy] = useState('name');
+
+  function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
+    setFilterBy(event.target.value);
+  }
+
   function handleFilterChange(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.value !== '') {
-      setShownStores(stores.filter((store) =>
-        store.name.toLowerCase().includes(event.target.value.toLowerCase())));
+      switch (filterBy) {
+        case 'name':
+          setShownStores(stores.filter((store) =>
+            store.name.toLowerCase()
+              .includes(event.target.value.toLowerCase())));
+          break;
+        case 'address':
+          setShownStores(stores.filter((store) =>
+            store.address.toLowerCase()
+              .includes(event.target.value.toLowerCase())));
+          break;
+        case 'stock':
+          break;
+      }
     } else {
       setShownStores(stores);
     }
@@ -32,8 +50,15 @@ export default function Stores() {
   return (
     <>
       <h1>PenguinCo Stores</h1>
-      <h2>Filter stores by name</h2>
-      <input id="filter" onChange={handleFilterChange} />
+      <h2>Filter stores by {filterBy}</h2>
+      <select onChange={handleSelectChange}>
+        <option key="name" value="name">Name</option>
+        <option key="address" value="address">Address</option>
+        <option key="stock" value="stock">Stock</option>
+      </select>
+      {filterBy !== 'stock' ?
+        <input id="filter" onChange={handleFilterChange} /> :
+        '...'}
       {loading && <h2>Loading...</h2>}
       {!loading && error ? <h2>Error: {error}</h2> : ''}
       {!loading && stores.length ? (
