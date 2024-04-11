@@ -108,6 +108,7 @@ export default function Store() {
           <table>
             <thead>
               <tr>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Quantity</th>
                 <th>Add</th>
@@ -118,6 +119,7 @@ export default function Store() {
             <tbody>
               {store.stock.length ? store.stock.map((item) => (
                 <tr key={item.id}>
+                  <td><img src={item.image} /></td>
                   <td>{item.name}</td>
                   <td>{item.quantity}</td>
                   <td>

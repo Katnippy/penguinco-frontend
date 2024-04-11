@@ -8,12 +8,14 @@
         {
           "id": 1,
           "name": "Pingu",
-          "quantity": 10
+          "quantity": 10,
+          "image": "../images/pingu.jpg"
         },
         {
           "id": 2,
           "name": "Pinga",
-          "quantity": 5
+          "quantity": 5,
+          "image": "../images/pinga.jpg"
         }
       ]
     },
@@ -25,32 +27,38 @@
         {
           "id": 1,
           "name": "Pingu",
-          "quantity": 47
+          "quantity": 47,
+          "image": "../images/pingu.jpg"
         },
         {
           "id": 2,
           "name": "Pinga",
-          "quantity": 33
+          "quantity": 33,
+          "image": "../images/pinga.jpg"
         },
         {
           "id": 3,
           "name": "Tux",
-          "quantity": 3
+          "quantity": 3,
+          "image": "../images/tux.jpg"
         },
         {
           "id": 4,
           "name": "Tuxedosam",
-          "quantity": 14
+          "quantity": 14,
+          "image": "../images/tuxedosam.jpg"
         },
         {
           "id": 5,
           "name": "Suica",
-          "quantity": 10
+          "quantity": 10,
+          "image": "../images/suica.jpg"
         },
         {
           "id": 6,
           "name": "Donpen",
-          "quantity": 8
+          "quantity": 8,
+          "image": "../images/donpen.jpg"
         }
       ]
     },
@@ -62,17 +70,20 @@
         {
           "id": 1,
           "name": "Pingu",
-          "quantity": 23
+          "quantity": 23,
+          "image": "../images/pingu.jpg"
         },
         {
           "id": 2,
           "name": "Pinga",
-          "quantity": 8
+          "quantity": 8,
+          "image": "../images/pinga.jpg"
         },
         {
           "id": 4,
           "name": "Tuxedosam",
-          "quantity": 1
+          "quantity": 1,
+          "image": "../images/tuxedosam.jpg"
         }
       ]
     }
