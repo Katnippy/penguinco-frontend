@@ -46,9 +46,8 @@ const storesSlice = createSlice({
       .addCase(updateStore.pending, (state) => {
         state.loading = true;
       })
-      .addCase(updateStore.fulfilled, (state, action) => {
+      .addCase(updateStore.fulfilled, (state) => {
         state.loading = false;
-        state.store = action.payload;
       })
       .addCase(updateStore.rejected, (state, action) => {
         state.loading = false;

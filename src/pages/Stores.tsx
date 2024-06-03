@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getStores } from '../features/stores/storesSlice';
 import { IStore } from '../common/types';
+import { STOCK_ITEMS } from '../common/consts';
 
 export default function Stores() {
   const dispatch = useAppDispatch();
@@ -80,7 +81,7 @@ export default function Stores() {
                   <ul>
                     {store.stock.length ? store.stock.map((item) => (
                       <li key={item.id}>
-                        {item.name}: <i>{item.quantity} unit{item.quantity
+                        {STOCK_ITEMS[item.stockItemId! - 1].name}: <i>{item.quantity} unit{item.quantity
                           !== 1 ? 's' : ''}</i>
                       </li>
                     )) : 'No stock...'}

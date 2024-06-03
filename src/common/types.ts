@@ -1,8 +1,19 @@
-interface IStore {
-  id: number, // ! JSON Server changes this 😡
-  name: string,
-  address: string,
-  stock: Array<{ id: number, name: string, quantity: number, image: string }>
+interface IStockItem {
+  id: number,
+  name: string
 }
 
-export type { IStore };
+interface IStock {
+  id: number,
+  stockItemId: number | undefined,
+  quantity: number
+}
+
+interface IStore {
+  id: number,
+  name: string,
+  address: string,
+  stock: Array<IStock>
+}
+
+export type { IStore, IStock, IStockItem };
