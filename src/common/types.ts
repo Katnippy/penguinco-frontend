@@ -1,6 +1,7 @@
 interface IStockItem {
   id: number,
-  name: string
+  name: string,
+  image: string
 }
 
 interface IStock {

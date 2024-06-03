@@ -111,7 +111,9 @@ export default function Store() {
             <tbody>
               {store.stock.length ? store.stock.map((item) => (
                 <tr key={item.id}>
-                  <td><img src={'../../images/pingu.jpg'} /></td>
+                  <td>
+                    <img src={STOCK_ITEMS[item.stockItemId! - 1].image} />
+                  </td>
                   <td>{STOCK_ITEMS[item.stockItemId! - 1].name}</td>
                   <td>{item.quantity}</td>
                   <td>
