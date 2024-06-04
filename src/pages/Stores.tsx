@@ -83,8 +83,10 @@ export default function Stores() {
                   <ul>
                     {store.stock.length ? store.stock.map((item) => (
                       <li key={item.id}>
-                        {STOCK_ITEMS[item.stockItemId! - 1].name}: <i>{item.quantity} unit{item.quantity
-                          !== 1 ? 's' : ''}</i>
+                        {STOCK_ITEMS[item.stockItemId! - 1].name}:
+                        <i>
+                          {item.quantity} unit{item.quantity!== 1 ? 's' : ''}
+                        </i>
                       </li>
                     )) : 'No stock...'}
                   </ul>
