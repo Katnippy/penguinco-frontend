@@ -18,11 +18,22 @@ export default function Stores() {
 
   const [shownStores, setShownStores] = useState<Array<IStore>>(stores);
 
+  // ? Does this need to be a `useEffect()` hook?
   useEffect(() => {
     setShownStores(stores);
   }, [stores]);
 
   const [filterBy, setFilterBy] = useState('name');
+  const [checkedStockItems, setCheckedStockItems] =
+    useState<Array<string>>([]);
+
+  // ? Does this need to be a `useEffect()` hook?
+  useEffect(() => {
+    setShownStores(stores.filter((store) =>
+      checkedStockItems.every((checkedStockItem) =>
+        (store.stock.map((item) => STOCK_ITEMS[item.stockItemId! - 1].name)
+          .includes(checkedStockItem)))));
+  }, [checkedStockItems]);
 
   function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     setFilterBy(event.target.value);
@@ -32,16 +43,22 @@ export default function Stores() {
     if (event.target.value !== '') {
       switch (filterBy) {
         case 'name':
-          setShownStores(stores.filter((store) =>
-            store.name.toLowerCase()
-              .includes(event.target.value.toLowerCase())));
+          setShownStores(stores.filter((store) => store.name.toLowerCase()
+            .includes(event.target.value.toLowerCase())));
           break;
         case 'address':
-          setShownStores(stores.filter((store) =>
-            store.address.toLowerCase()
-              .includes(event.target.value.toLowerCase())));
+          setShownStores(stores.filter((store) => store.address.toLowerCase()
+            .includes(event.target.value.toLowerCase())));
           break;
+        // Set `shownStores` to be every store already being shown that
+        // includes all of (but not only) the checked stock.
         case 'stock':
+          if (event.target.checked) {
+            setCheckedStockItems([...checkedStockItems, event.target.value]);
+          } else {
+            setCheckedStockItems(checkedStockItems.filter((c) =>
+              c !== event.target.value));
+          }
           break;
       }
     } else {
@@ -60,7 +77,14 @@ export default function Stores() {
       </select>
       {filterBy !== 'stock' ?
         <input id="filter" onChange={handleFilterChange} /> :
-        '...'}
+        STOCK_ITEMS.map(({ id, name }) => (
+          <div key={id}>
+            <input type="checkbox" id={name} name={name} value={name}
+              onChange={handleFilterChange} />
+            <label htmlFor={name}>{name}</label>
+            <br />
+          </div>
+        ))}
       {loading && <h2>Loading...</h2>}
       {!loading && error ? <h2>Error: {error}</h2> : ''}
       {!loading && stores.length ? (

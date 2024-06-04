@@ -31,6 +31,7 @@ export default function Store() {
       !store.stock.map((item) => item.stockItemId).includes(stockItem.id));
   }
 
+  // ? Does this need to be a `useEffect()`?
   useEffect(() => {
     setNewStock({
       id: Object.keys(store).length &&
@@ -43,7 +44,8 @@ export default function Store() {
   function updateThenReadStore(storeToUpdate: IStore)
   {
     dispatch(updateStore(storeToUpdate))
-      .then(() => dispatch(getStore(+params.id!))); // ? Should this promise be resolved, caught, etc.?
+      // ? Should this promise be resolved, caught, etc.?
+      .then(() => dispatch(getStore(+params.id!)));
   }
 
   function incrementStock(itemId: number) {
