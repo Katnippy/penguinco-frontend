@@ -1,6 +1,7 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 
 import { Link } from 'react-router-dom';
+import { DateTime } from 'luxon';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getStores } from '../features/stores/storesSlice';
@@ -70,6 +71,7 @@ export default function Stores() {
               <th>Address</th>
               <th>Stock</th>
               <th>Manage</th>
+              <th>Updated</th>
             </tr>
           </thead>
           <tbody>
@@ -92,6 +94,7 @@ export default function Stores() {
                     <button>Manage</button>
                   </Link>
                 </td>
+                <td>{DateTime.fromISO(store.updated).toFormat('dd/MM/yy')}</td>
               </tr>
             ))}
           </tbody>

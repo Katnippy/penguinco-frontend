@@ -14,7 +14,8 @@ interface IStore {
   id: number,
   name: string,
   address: string,
-  stock: Array<IStock>
+  stock: Array<IStock>,
+  updated: string
 }
 
 export type { IStore, IStock, IStockItem };

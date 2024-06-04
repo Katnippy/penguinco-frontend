@@ -1,6 +1,7 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
 import { useParams } from 'react-router-dom';
+import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
@@ -49,7 +50,8 @@ export default function Store() {
     const storeToUpdate: IStore = {
       ...store,
       stock: [...store.stock.map((item) => item.id === itemId ?
-        { ...item, quantity: item.quantity + 1 } : item)]
+        { ...item, quantity: item.quantity + 1 } : item)],
+      updated: DateTime.now().toISODate()
     };
     updateThenReadStore(storeToUpdate);
   }
@@ -58,7 +60,8 @@ export default function Store() {
     const storeToUpdate: IStore = {
       ...store,
       stock: [...store.stock.map((item) => item.id === itemId ?
-        { ...item, quantity: item.quantity - 1 } : item)]
+        { ...item, quantity: item.quantity - 1 } : item)],
+      updated: DateTime.now().toISODate()
     };
     updateThenReadStore(storeToUpdate);
   }
@@ -66,7 +69,8 @@ export default function Store() {
   function deleteStock(itemId: number) {
     const storeToUpdate: IStore = {
       ...store,
-      stock: [...store.stock.filter((item) => item.id !== itemId)]
+      stock: [...store.stock.filter((item) => item.id !== itemId)],
+      updated: DateTime.now().toISODate()
     };
     updateThenReadStore(storeToUpdate);
   }
@@ -74,8 +78,11 @@ export default function Store() {
   function addStock(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const storeToUpdate: IStore =
-      { ...store, stock: [...store.stock, newStock] };
+    const storeToUpdate: IStore = {
+      ...store,
+      stock: [...store.stock, newStock],
+      updated: DateTime.now().toISODate()
+    };
     updateThenReadStore(storeToUpdate);
   }
 
