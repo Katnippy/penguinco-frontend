@@ -5,10 +5,11 @@ import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { getStore, updateStore } from '../features/store/storeSlice';
+import { resetState, getStore, updateStore } from '../features/store/storeSlice';
 import { IStockItem, IStock, IStore } from '../common/types';
 import { STOCK_ITEMS, MAX_STOCK_QUANTITY, MIN_STOCK_QUANTITY, NUM_OF_COLS, }
   from '../common/consts';
+import NotFound from './NotFound';
 
 export default function Store() {
   const params = useParams<{ id: string }>();
@@ -16,11 +17,8 @@ export default function Store() {
   const dispatch = useAppDispatch();
   const { loading, store, error } = useAppSelector((state) => state.store);
 
-  // ? Shouldn't these be undefined?
-  const [newStock, setNewStock] =
-    useState<IStock>({ id: 1, stockItemId: 1, quantity: 0 });
-
   useEffect(() => {
+    dispatch(resetState());
     dispatch(getStore(+params.id!));
   }, []);
 
@@ -30,6 +28,10 @@ export default function Store() {
     availableStock = STOCK_ITEMS.filter((stockItem) =>
       !store.stock.map((item) => item.stockItemId).includes(stockItem.id));
   }
+
+  // ? Shouldn't these be undefined?
+  const [newStock, setNewStock] =
+    useState<IStock>({ id: 1, stockItemId: 1, quantity: 0 });
 
   // ? Does this need to be a `useEffect()`?
   useEffect(() => {
@@ -99,7 +101,9 @@ export default function Store() {
   return (
     <>
       {loading && <h2>Loading...</h2>}
-      {!loading && error ? <h2>Error: {error}</h2> : ''}
+      {!loading && error && (error === 'Request failed with status code 404' ?
+        <NotFound /> : <h2>Error: {error}</h2>
+      )}
       {!loading && Object.keys(store).length ? (
         <>
           <h1>Manage {store.name}</h1>

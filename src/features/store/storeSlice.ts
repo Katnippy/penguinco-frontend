@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createAction, createSlice } from '@reduxjs/toolkit';
 
 import { IStore } from '../../common/types';
 import storeService from '../../services/stores';
@@ -26,6 +26,8 @@ export const updateStore =
     return await storeService.update(storeToUpdate.id, storeToUpdate);
   });
 
+export const resetState = createAction('resetState');
+
 const storesSlice = createSlice({
   name: 'stores',
   initialState,
@@ -52,7 +54,8 @@ const storesSlice = createSlice({
       .addCase(updateStore.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Error updating data.';
-      });
+      })
+      .addCase(resetState, () => initialState);
   },
 });
 
