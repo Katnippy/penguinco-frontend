@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import { IStore } from '../common/types';
 
-const baseUrl = 'http://localhost:5275/stores';
+const baseUrl =
+  'https://app-penguinco-api-uksouth-dev-001.azurewebsites.net/stores';
 
 // async function create(newObject) {
 //   const res = await axios.post(baseUrl, newObject);

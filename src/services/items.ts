@@ -2,7 +2,8 @@ import axios from 'axios';
 
 import { IStockItem } from '../common/types';
 
-const baseUrl = 'http://localhost:5275/items';
+const baseUrl =
+  'https://app-penguinco-api-uksouth-dev-001.azurewebsites.net/items';
 
 async function readAll() {
   const res = await axios.get<Array<IStockItem>>(baseUrl);
