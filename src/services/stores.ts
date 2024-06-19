@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import { IStore } from '../common/types';
 
 const baseUrl =
@@ -10,24 +8,30 @@ const baseUrl =
 //   return res.data;
 // }
 
-async function readAll() {
-  const res = await axios.get<Array<IStore>>(baseUrl);
-  return res.data;
+async function readAll(): Promise<Array<IStore>> {
+  const res = await fetch(baseUrl);
+
+  return await res.json();
 }
 
-async function readById(id: number) {
-  const res = await axios.get<IStore>(`${baseUrl}/${id}`);
-  return res.data;
+async function readById(id: number): Promise<IStore> {
+  const res = await fetch(`${baseUrl}/${id}`);
+
+  return await res.json();
 }
 
-async function update(id: number, store: IStore) {
-  const res = await axios.put(`${baseUrl}/${id}`, store);
-  return res.data;
+async function update(id: number, store: IStore): Promise<void> {
+  const req = { method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(store)
+  };
+  const res = await fetch(`${baseUrl}/${id}`, req);
+
+  return await res.json();
 }
 
 // async function destroy(id) {
 //   await axios.delete(`${baseUrl}/${id}`);
 // }
-
 
 export default { readAll, readById, update };
