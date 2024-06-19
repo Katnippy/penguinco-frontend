@@ -18,12 +18,12 @@ const initialState: StoreState = {
 // ? Inconsistent terminology (i.e. get = HTTP, but update = CRUD)?
 export const getStore =
   createAsyncThunk('store/getStore', async (id: number) => {
-    return await storeService.readById(id);
+    return await storeService.readStoreById(id);
   });
 
 export const updateStore =
   createAsyncThunk('store/updateStore', async (storeToUpdate: IStore) => {
-    return await storeService.update(storeToUpdate.id, storeToUpdate);
+    return await storeService.updateStore(storeToUpdate.id, storeToUpdate);
   });
 
 export const resetState = createAction('resetState');

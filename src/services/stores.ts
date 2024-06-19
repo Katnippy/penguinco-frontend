@@ -1,37 +1,24 @@
-import { IStore } from '../common/types';
+import { IRequest, IStore } from '../common/types';
+import { read, update } from './crud';
 
 const baseUrl =
   'https://app-penguinco-api-uksouth-dev-001.azurewebsites.net/stores';
 
-// async function create(newObject) {
-//   const res = await axios.post(baseUrl, newObject);
-//   return res.data;
-// }
-
-async function readAll(): Promise<Array<IStore>> {
-  const res = await fetch(baseUrl);
-
-  return await res.json();
+async function readAllStores() {
+  return await read<Array<IStore>>(baseUrl);
 }
 
-async function readById(id: number): Promise<IStore> {
-  const res = await fetch(`${baseUrl}/${id}`);
-
-  return await res.json();
+async function readStoreById(id: number) {
+  return await read<IStore>(`${baseUrl}/${id}`);
 }
 
-async function update(id: number, store: IStore): Promise<void> {
-  const req = { method: 'PUT',
+async function updateStore(id: number, store: IStore) {
+  const req: IRequest = { method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(store)
   };
-  const res = await fetch(`${baseUrl}/${id}`, req);
 
-  return await res.json();
+  return await update<void>(`${baseUrl}/${id}`, req);
 }
 
-// async function destroy(id) {
-//   await axios.delete(`${baseUrl}/${id}`);
-// }
-
-export default { readAll, readById, update };
+export default { readAllStores, readStoreById, updateStore };

@@ -1,6 +1,6 @@
 import itemService from '../services/items';
 
-const STOCK_ITEMS = await itemService.readAll();
+const STOCK_ITEMS = await itemService.readAllStockItems();
 
 const MIN_STOCK_QUANTITY = 0;
 const MAX_STOCK_QUANTITY = 99;

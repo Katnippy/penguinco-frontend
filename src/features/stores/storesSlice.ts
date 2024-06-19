@@ -16,7 +16,7 @@ const initialState: StoresState = {
 };
 
 export const getStores = createAsyncThunk('stores/getStores', async () => {
-  return await storeService.readAll();
+  return await storeService.readAllStores();
 });
 
 const storesSlice = createSlice({

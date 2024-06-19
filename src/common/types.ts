@@ -18,4 +18,10 @@ interface IStore {
   updated: string
 }
 
-export type { IStore, IStock, IStockItem };
+interface IRequest {
+  method: string,
+  headers: { 'Content-Type': string },
+  body: string
+}
+
+export type { IStore, IStock, IStockItem, IRequest };
