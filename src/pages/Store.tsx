@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { resetState, getStore, updateStore } from '../features/store/storeSlice';
 import { IStockItem, IStock, IStore } from '../common/types';
-import { STOCK_ITEMS, MAX_STOCK_QUANTITY, MIN_STOCK_QUANTITY, NUM_OF_COLS, }
-  from '../common/consts';
+import { STOCK_ITEMS } from '../common/consts';
 import NotFound from './NotFound';
+import StoreTable from '../components/StoreTable';
 
 export default function Store() {
   const params = useParams<{ id: string }>();
@@ -110,46 +110,8 @@ export default function Store() {
           <Link to={'/stores'}>
             <button>Return</button>
           </Link>
-          <table>
-            <thead>
-              <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Add</th>
-                <th>Remove</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {store.stock.length ? store.stock.map((item) => (
-                <tr key={item.id}>
-                  <td>
-                    <img src={STOCK_ITEMS[item.stockItemId! - 1].image} />
-                  </td>
-                  <td>{STOCK_ITEMS[item.stockItemId! - 1].name}</td>
-                  <td>{item.quantity}</td>
-                  <td>
-                    <button onClick={() => incrementStock(item.id)}
-                      disabled={item.quantity === MAX_STOCK_QUANTITY ? true :
-                        false}>
-                        +
-                    </button>
-                  </td>
-                  <td>
-                    <button onClick={() => decrementStock(item.id)}
-                      disabled={item.quantity === MIN_STOCK_QUANTITY ? true :
-                        false}>
-                        -
-                    </button>
-                  </td>
-                  <td>
-                    <button onClick={() => deleteStock(item.id)}>🗑️</button>
-                  </td>
-                </tr>
-              )) : <tr><td colSpan={NUM_OF_COLS}>No stock...</td></tr>}
-            </tbody>
-          </table>
+          <StoreTable stock={store.stock} incrementStock={incrementStock}
+            decrementStock={decrementStock} deleteStock={deleteStock}/>
           <h2>New stock</h2>
           <form onSubmit={addStock}>
             <label htmlFor="name">Name: </label>
