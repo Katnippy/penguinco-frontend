@@ -1,12 +1,10 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 
-import { Link } from 'react-router-dom';
-import { DateTime } from 'luxon';
-
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getStores } from '../features/stores/storesSlice';
 import { IStore } from '../common/types';
 import { STOCK_ITEMS } from '../common/consts';
+import StoresTable from '../components/StoresTable';
 
 export default function Stores() {
   const dispatch = useAppDispatch();
@@ -85,46 +83,9 @@ export default function Stores() {
             <br />
           </div>
         ))}
-      {loading && <h2>Loading...</h2>}
       {!loading && error ? <h2>Error: {error}</h2> : ''}
-      {!loading && stores.length ? (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Stock</th>
-              <th>Manage</th>
-              <th>Updated</th>
-            </tr>
-          </thead>
-          <tbody>
-            {shownStores.map((store) => (
-              <tr key={store.id}>
-                <td>{store.name}</td>
-                <td>{store.address}</td>
-                <td>
-                  <ul>
-                    {store.stock.length ? store.stock.map((item) => (
-                      <li key={item.id}>
-                        {STOCK_ITEMS[item.stockItemId! - 1].name}:
-                        <i>
-                          {item.quantity} unit{item.quantity!== 1 ? 's' : ''}
-                        </i>
-                      </li>
-                    )) : 'No stock...'}
-                  </ul>
-                </td>
-                <td>
-                  <Link to={`/stores/${store.id.toString()}`}>
-                    <button>Manage</button>
-                  </Link>
-                </td>
-                <td>{DateTime.fromISO(store.updated).toFormat('dd/MM/yy')}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {stores.length ? (
+        <StoresTable shownStores={shownStores} loading={loading} />
       ) : ''}
     </>
   );
