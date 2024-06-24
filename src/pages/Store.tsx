@@ -100,18 +100,19 @@ export default function Store() {
 
   return (
     <>
-      {loading && <h2>Loading...</h2>}
       {!loading && error && (error === 'Request failed with status code 404' ?
-        <NotFound /> : <h2>Error: {error}</h2>
+        <NotFound /> : <h2>Error: {error}</h2> // ! Broken because of the JSON error.
       )}
-      {!loading && Object.keys(store).length ? (
+      {Object.keys(store).length ? (
         <>
           <h1>Manage {store.name}</h1>
           <Link to={'/stores'}>
             <button>Return</button>
           </Link>
-          <StoreTable stock={store.stock} incrementStock={incrementStock}
-            decrementStock={decrementStock} deleteStock={deleteStock}/>
+          <StoreTable loading={loading} stock={store.stock}
+            incrementStock={incrementStock} decrementStock={decrementStock}
+            deleteStock={deleteStock}
+          />
           <h2>New stock</h2>
           <form onSubmit={addStock}>
             <label htmlFor="name">Name: </label>
