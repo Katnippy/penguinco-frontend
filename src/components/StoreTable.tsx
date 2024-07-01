@@ -18,9 +18,9 @@ import SkeletonCell from './SkeletonCell';
 type StoreTableProps = {
   loading: boolean,
   stock: Array<IStock>,
-  incrementStock: (itemId: number) => void,
-  decrementStock: (itemId: number) => void,
-  deleteStock: (itemId: number) => void,
+  incrementStock: (itemId: string) => void,
+  decrementStock: (itemId: string) => void,
+  deleteStock: (itemId: string) => void,
 };
 
 export default function StoreTable({

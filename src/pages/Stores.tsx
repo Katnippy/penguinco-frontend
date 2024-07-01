@@ -39,6 +39,7 @@ export default function Stores() {
 
   function handleFilterChange(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.value !== '') {
+      // Set `shownStores` to be every store that includes the search value.
       switch (filterBy) {
         case 'name':
           setShownStores(stores.filter((store) => store.name.toLowerCase()
@@ -48,8 +49,8 @@ export default function Stores() {
           setShownStores(stores.filter((store) => store.address.toLowerCase()
             .includes(event.target.value.toLowerCase())));
           break;
-        // Set `shownStores` to be every store already being shown that
-        // includes all of (but not only) the checked stock.
+        // Set `checkedStockItems` to be every store that includes all of (but
+        // not only) the checked stock.
         case 'stock':
           if (event.target.checked) {
             setCheckedStockItems([...checkedStockItems, event.target.value]);

@@ -23,22 +23,25 @@ export default function Store() {
   }, []);
 
   // ? Might be able to change loops for direct access?
+  // Set `availableStock` to be every stock item not already in stock by
+  // filtering out existing item ids.
   let availableStock: Array<IStockItem> = [];
   if (Object.keys(store).length) {
     availableStock = STOCK_ITEMS.filter((stockItem) =>
-      !store.stock.map((item) => item.stockItemId).includes(stockItem.id));
+      !store.stock.map((item) => item.stockItemId).includes(+stockItem.id)
+    );
   }
 
   // ? Shouldn't these be undefined?
   const [newStock, setNewStock] =
-    useState<IStock>({ id: 1, stockItemId: 1, quantity: 0 });
+    useState<IStock>({ id: '1', stockItemId: 1, quantity: 0 });
 
   // ? Does this need to be a `useEffect()`?
   useEffect(() => {
     setNewStock({
       id: Object.keys(store).length &&
-        store.stock.length ? store.stock.at(-1)!.id + 1 : 1,
-      stockItemId: !availableStock.length ? undefined : availableStock[0].id,
+        store.stock.length ? (+store.stock.at(-1)!.id + 1).toString() : '1',
+      stockItemId: !availableStock.length ? undefined : +availableStock[0].id,
       quantity: 0,
     });
   }, [store]);
@@ -50,7 +53,7 @@ export default function Store() {
       .then(() => dispatch(getStore(+params.id!)));
   }
 
-  function incrementStock(itemId: number) {
+  function incrementStock(itemId: string) {
     const storeToUpdate: IStore = {
       ...store,
       stock: [...store.stock.map((item) => item.id === itemId ?
@@ -60,7 +63,7 @@ export default function Store() {
     updateThenReadStore(storeToUpdate);
   }
 
-  function decrementStock(itemId: number) {
+  function decrementStock(itemId: string) {
     const storeToUpdate: IStore = {
       ...store,
       stock: [...store.stock.map((item) => item.id === itemId ?
@@ -70,7 +73,7 @@ export default function Store() {
     updateThenReadStore(storeToUpdate);
   }
 
-  function deleteStock(itemId: number) {
+  function deleteStock(itemId: string) {
     const storeToUpdate: IStore = {
       ...store,
       stock: [...store.stock.filter((item) => item.id !== itemId)],

@@ -23,7 +23,7 @@ export const getStore =
 
 export const updateStore =
   createAsyncThunk('store/updateStore', async (storeToUpdate: IStore) => {
-    return await storeService.updateStore(storeToUpdate.id, storeToUpdate);
+    return await storeService.updateStore(+storeToUpdate.id, storeToUpdate);
   });
 
 export const resetState = createAction('resetState');

@@ -1,17 +1,17 @@
 interface IStockItem {
-  id: number,
+  id: string,
   name: string,
   image: string
 }
 
 interface IStock {
-  id: number,
+  id: string,
   stockItemId: number | undefined,
   quantity: number
 }
 
 interface IStore {
-  id: number,
+  id: string,
   name: string,
   address: string,
   stock: Array<IStock>,
