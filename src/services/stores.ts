@@ -18,7 +18,7 @@ async function updateStore(id: number, store: IStore) {
     body: JSON.stringify(store)
   };
 
-  return await update<void>(`${baseUrl}/${id}`, req);
+  return await update(`${baseUrl}/${id}`, req);
 }
 
 export default { readAllStores, readStoreById, updateStore };

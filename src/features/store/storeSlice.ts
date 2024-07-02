@@ -43,7 +43,7 @@ const storesSlice = createSlice({
       })
       .addCase(getStore.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Error getting data.';
+        state.error = action.error.message || 'Error reading data.';
       })
       .addCase(updateStore.pending, (state) => {
         state.loading = true;

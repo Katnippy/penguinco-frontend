@@ -104,7 +104,7 @@ export default function Store() {
   return (
     <>
       {!loading && error && (error === 'Request failed with status code 404' ?
-        <NotFound /> : <h2>Error: {error}</h2> // ! Broken because of the JSON error.
+        <NotFound /> : <h2>Error: {error}</h2>
       )}
       {Object.keys(store).length ? (
         <>
