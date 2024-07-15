@@ -11,6 +11,7 @@ import { IStockItem, IStock, IStore } from '../common/types';
 import { STOCK_ITEMS } from '../common/consts';
 import Notification from '../components/Notification';
 import NotFound from './NotFound';
+import Error from './Error';
 import StoreTable from '../components/StoreTable';
 
 export default function Store() {
@@ -106,7 +107,9 @@ export default function Store() {
 
   return (
     <>
-      {!loading && error && (error === '404' ? <NotFound /> : '')}
+      {!loading && error &&
+        (error === '404' ? <NotFound /> : error === 'Error' ? <Error /> : '')
+      }
       {Object.keys(store).length ? (
         <>
           <h1>Manage {store.name}</h1>
