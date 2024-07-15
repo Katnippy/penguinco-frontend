@@ -5,9 +5,11 @@ import { DateTime } from 'luxon';
 import { Link } from 'react-router-dom';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { resetState, getStore, updateStore } from '../features/store/storeSlice';
+import { resetState, getStore, updateStore } from
+  '../features/store/storeSlice';
 import { IStockItem, IStock, IStore } from '../common/types';
 import { STOCK_ITEMS } from '../common/consts';
+import Notification from '../components/Notification';
 import NotFound from './NotFound';
 import StoreTable from '../components/StoreTable';
 
@@ -16,6 +18,7 @@ export default function Store() {
 
   const dispatch = useAppDispatch();
   const { loading, store, error } = useAppSelector((state) => state.store);
+  // const { notification } = useAppSelector((state) => state.notification);
 
   useEffect(() => {
     dispatch(resetState());
@@ -103,15 +106,15 @@ export default function Store() {
 
   return (
     <>
-      {!loading && error && (error === 'Request failed with status code 404' ?
-        <NotFound /> : <h2>Error: {error}</h2>
-      )}
+      {!loading && error && (error === '404' ? <NotFound /> : '')}
       {Object.keys(store).length ? (
         <>
           <h1>Manage {store.name}</h1>
           <Link to={'/stores'}>
             <button>Return</button>
           </Link>
+          {/* {notification ? <Notification notification={notification}/> : ''} */}
+          <Notification />
           <StoreTable loading={loading} stock={store.stock}
             incrementStock={incrementStock} decrementStock={decrementStock}
             deleteStock={deleteStock}

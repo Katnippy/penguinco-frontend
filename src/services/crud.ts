@@ -1,4 +1,13 @@
+import { displayNotification } from
+  '../features/notification/notificationSlice';
+
 import { IRequest } from '../common/types';
+import { AppStore } from '../app/store';
+
+let store: AppStore;
+export function injectStore(_store: AppStore) {
+  store = _store;
+}
 
 export async function read<T>(url: string): Promise<T> {
   const res = await fetch(url);
@@ -25,11 +34,15 @@ export async function update(url: string, req: IRequest) {
       return;
     case 500:
       console.error('PUT 500: ', res);
-      // TODO: Display notification.
+      store.dispatch(displayNotification(
+        'An error has occurred. Please refresh and / or try again!'
+      ));
       break;
     default:
       console.error('Unhandled error: ', res);
-      // TODO: Display notification.
+      store.dispatch(displayNotification(
+        'An error has occurred. Please refresh and / or try again!'
+      ));
       break;
   }
 }

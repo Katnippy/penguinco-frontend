@@ -2,7 +2,7 @@ import { IRequest, IStore } from '../common/types';
 import { read, update } from './crud';
 
 const baseUrl =
-  'https://app-penguinco-api-uksouth-dev-001.azurewebsites.net/stores';
+  'http://localhost:5275/stores';
 
 async function readAllStores() {
   return await read<Array<IStore>>(baseUrl);

@@ -10,6 +10,9 @@ import Stores from './pages/Stores';
 import Store from './pages/Store';
 import NotFound from './pages/NotFound';
 import { store } from './app/store';
+import { injectStore } from './services/crud';
+
+injectStore(store);
 
 const router = createBrowserRouter([
   {
