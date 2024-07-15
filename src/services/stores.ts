@@ -13,7 +13,8 @@ async function readStoreById(id: number) {
 }
 
 async function updateStore(id: number, store: IStore) {
-  const req: IRequest = { method: 'PUT',
+  const req: IRequest = {
+    method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(store)
   };
