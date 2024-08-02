@@ -2,7 +2,13 @@ import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
 import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
+import { SelectChangeEvent, Button, FormControl, InputLabel, Select, MenuItem }
+  from '@mui/material';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { resetState, getStore, updateStore } from
@@ -97,7 +103,7 @@ export default function Store() {
     updateThenReadStore(storeToUpdate);
   }
 
-  function handleNewStockName(event: ChangeEvent<HTMLSelectElement>) {
+  function handleNewStockName(event: SelectChangeEvent<number>) {
     setNewStock({ ...newStock, stockItemId: +event.target.value });
   }
 
@@ -112,28 +118,54 @@ export default function Store() {
       }
       {Object.keys(store).length ? (
         <>
-          <h1>Manage {store.name}</h1>
-          <Link to={'/stores'}>
-            <button>Return</button>
-          </Link>
-          {/* {notification ? <Notification notification={notification}/> : ''} */}
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Typography variant="h3" gutterBottom>
+                Manage {store.name}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Link to={'/stores'}>
+                <Button variant="outlined">Return</Button>
+              </Link>
+            </Grid>
+          </Grid>
           <Notification />
           <StoreTable loading={loading} stock={store.stock}
             incrementStock={incrementStock} decrementStock={decrementStock}
             deleteStock={deleteStock}
           />
-          <h2>New stock</h2>
-          <form onSubmit={addStock}>
-            <label htmlFor="name">Name: </label>
-            <select value={newStock.stockItemId} onChange={handleNewStockName}>
-              {availableStock.map((stock) =>
-                <option key={stock.id} value={stock.id}>{stock.name}</option>)}
-            </select>
-            <label htmlFor="quantity">Quantity: </label>
-            <input type="number" value={newStock.quantity}
-              onChange={handleNewStockQuantity} min="0" max="99" required />
-            <button type="submit">Submit</button>
-          </form>
+          <Typography variant="h5" gutterBottom>
+              New stock
+          </Typography>
+          <Box sx={{ border: 1 }}>
+            <Grid container spacing={2} justifyContent="center"
+              alignItems="center">
+              <form onSubmit={addStock}>
+                <FormControl fullWidth>
+                  <InputLabel id="name">Name</InputLabel>
+                  <Select
+                    required labelId="name" id="name"
+                    value={newStock.stockItemId === undefined ? '' :
+                      newStock.stockItemId}
+                    label="name" onChange={handleNewStockName}
+                  >
+                    {availableStock.map((stock) =>
+                      <MenuItem key={stock.id} value={stock.id}>
+                        {stock.name}
+                      </MenuItem>
+                    )}
+                  </Select>
+                  <TextField
+                    type="number" required id="quantity" label="Quantity"
+                    value={newStock.quantity} onChange={handleNewStockQuantity}
+                    InputProps={{ inputProps: { min: 0, max: 9999 } }}
+                  />
+                  <Button type="submit" variant="contained">Submit</Button>
+                </FormControl>
+              </form>
+            </Grid>
+          </Box>
         </>
       ) : ''}
     </>
