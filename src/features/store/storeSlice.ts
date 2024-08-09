@@ -11,7 +11,7 @@ type StoreState = {
 
 const initialState: StoreState = {
   loading: false,
-  store: {}, // ! Needs to be a nullable type.
+  store: {}, // ! Needs to be a nullable type!
   error: '',
 };
 

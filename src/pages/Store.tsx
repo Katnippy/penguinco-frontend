@@ -1,11 +1,11 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 
 import { useParams } from 'react-router-dom';
 import { DateTime } from 'luxon';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { SelectChangeEvent, Button, FormControl, InputLabel, Select, MenuItem }
+import { Button, FormControl, MenuItem }
   from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -25,7 +25,6 @@ export default function Store() {
 
   const dispatch = useAppDispatch();
   const { loading, store, error } = useAppSelector((state) => state.store);
-  // const { notification } = useAppSelector((state) => state.notification);
 
   useEffect(() => {
     dispatch(resetState());
@@ -103,7 +102,7 @@ export default function Store() {
     updateThenReadStore(storeToUpdate);
   }
 
-  function handleNewStockName(event: SelectChangeEvent<number>) {
+  function handleNewStockName(event: ChangeEvent<HTMLInputElement>) {
     setNewStock({ ...newStock, stockItemId: +event.target.value });
   }
 
@@ -117,56 +116,94 @@ export default function Store() {
         (error === '404' ? <NotFound /> : error === 'Error' ? <Error /> : '')
       }
       {Object.keys(store).length ? (
-        <>
-          <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Typography variant="h3" gutterBottom>
+        <Grid container spacing={0} direction="column" justifyContent="center"
+          alignItems="center" sx={{ mt: { xs: 2, sm: 6 }, mx: { xs: 1 } }}>
+          <Grid item>
+            <Grid container spacing={2} maxWidth="100vw"
+              sx={{ alignItems: { xs: 'center', sm: 'normal' },
+                mb: { xs: 1 } }}
+            >
+              <Grid item xs={6} sm={11}>
+                <Typography
+                  sx={{ typography: { xs: 'h4', sm: 'h3' }, ml: { xs: 1 } }}
+                  gutterBottom
+                >
                 Manage {store.name}
-              </Typography>
+                </Typography>
+              </Grid>
+              <Grid item xs={6} sm={1}>
+                <Grid container justifyContent='center'>
+                  <Grid item sx={{ ml: { xs: 1 } }}>
+                    <Link to={'/stores'}>
+                      <Button variant="outlined"
+                        sx={{ mb: { xs: 2 } }}>
+                      Return
+                      </Button>
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <Link to={'/stores'}>
-                <Button variant="outlined">Return</Button>
-              </Link>
+            <Notification />
+            <StoreTable loading={loading} stock={store.stock}
+              incrementStock={incrementStock} decrementStock={decrementStock}
+              deleteStock={deleteStock}
+            />
+            <Grid container flexDirection="column" maxWidth="100vw">
+              <Grid item>
+                <Typography variant="h5" gutterBottom
+                  sx={{ mt: 3, mr: { xs: 4 }, textAlign: 'center' }}>
+              New stock
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Box sx={{ border: 1, mr: { xs: 4 } }}>
+                  <form onSubmit={addStock}>
+                    <FormControl fullWidth>
+                      <Grid container sx={{ my: { xs: 3 } }}>
+                        <Grid item xs={6}>
+                          <Grid container
+                            sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <TextField select name="name" id="name"
+                              value={newStock.stockItemId === undefined ? '' :
+                                newStock.stockItemId}
+                              label="Name" onChange={handleNewStockName}
+                            >
+                              {availableStock.map((stock) =>
+                                <MenuItem key={stock.id} value={stock.id}>
+                                  {stock.name}
+                                </MenuItem>
+                              )}
+                            </TextField>
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Grid container
+                            sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <TextField
+                              type="number" id="quantity" label="Quantity"
+                              value={newStock.quantity}
+                              onChange={handleNewStockQuantity}
+                              InputProps={{ inputProps: { min: 0, max: 9999 } }}
+                            />
+                          </Grid>
+                        </Grid>
+                        <Grid item xs={12}
+                          sx={{ display: 'flex', justifyContent: 'center',
+                            mt: { xs: 2 }, mb: { xs: -1 } }}
+                        >
+                          <Button type="submit" variant="contained">
+                            Submit
+                          </Button>
+                        </Grid>
+                      </Grid>
+                    </FormControl>
+                  </form>
+                </Box>
+              </Grid>
             </Grid>
           </Grid>
-          <Notification />
-          <StoreTable loading={loading} stock={store.stock}
-            incrementStock={incrementStock} decrementStock={decrementStock}
-            deleteStock={deleteStock}
-          />
-          <Typography variant="h5" gutterBottom>
-              New stock
-          </Typography>
-          <Box sx={{ border: 1 }}>
-            <Grid container spacing={2} justifyContent="center"
-              alignItems="center">
-              <form onSubmit={addStock}>
-                <FormControl fullWidth>
-                  <InputLabel id="name">Name</InputLabel>
-                  <Select
-                    required labelId="name" id="name"
-                    value={newStock.stockItemId === undefined ? '' :
-                      newStock.stockItemId}
-                    label="name" onChange={handleNewStockName}
-                  >
-                    {availableStock.map((stock) =>
-                      <MenuItem key={stock.id} value={stock.id}>
-                        {stock.name}
-                      </MenuItem>
-                    )}
-                  </Select>
-                  <TextField
-                    type="number" required id="quantity" label="Quantity"
-                    value={newStock.quantity} onChange={handleNewStockQuantity}
-                    InputProps={{ inputProps: { min: 0, max: 9999 } }}
-                  />
-                  <Button type="submit" variant="contained">Submit</Button>
-                </FormControl>
-              </form>
-            </Grid>
-          </Box>
-        </>
+        </Grid>
       ) : ''}
     </>
   );
