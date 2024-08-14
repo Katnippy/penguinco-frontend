@@ -171,7 +171,7 @@ export default function Store() {
                 </Grid>
                 {/* New stock form */}
                 <Grid item>
-                  <Box sx={{ border: 1,
+                  <Box id='stock-box' sx={{ border: 1, borderRadius: '5px',
                     width: { sm: '60vw', md: '50vw', lg: '30vw' },
                     mr: { xs: 4, sm: 0 } }}
                   >
