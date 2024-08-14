@@ -27,10 +27,11 @@ export default function Notification() {
 
   if (notification) {
     return (
-      <Alert variant="filled" severity="error"
+      <Alert id='notification' variant="filled" severity="error"
         // TODO: Make this solution for the notification going off-screen on
         // TODO: mobile less hacky.
-        sx={{ width: { xs: '83.5vw' }, mb: 2 }}>{notification}
+        sx={{ width: { xs: '83.5vw', md: 'auto' }, mb: 2 }}>
+        {notification}
       </Alert>
     );
   } else {

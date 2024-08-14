@@ -31,8 +31,8 @@ export default function StoreTable({
   deleteStock
 }: StoreTableProps) {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="store table">
+    <TableContainer component={Paper} sx={{ maxHeight: { md: 450 } }}>
+      <Table aria-label="store-table" stickyHeader sx={{ minWidth: { md: 650 } }}>
         <TableHead>
           <TableRow>
             <TableCell align="center">Image</TableCell>
@@ -45,10 +45,7 @@ export default function StoreTable({
         </TableHead>
         <TableBody>
           {stock.map((item) => (
-            <TableRow
-              key={item.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 1 } }}
-            >
+            <TableRow key={item.id}>
               {!loading ?
                 <>
                   <TableCell component="th" scope="row" align="center">
