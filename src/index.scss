@@ -8,6 +8,11 @@ $md: 900px;
 $lg: 1200px;
 $xl: 1536px;
 
+img {
+  width: 100px;
+  height: 100px;
+}
+
 table {
   border-collapse: separate;
   border-bottom: $border;
@@ -36,13 +41,6 @@ thead > tr:first-child > th:first-child {
 
 thead > tr:first-child > th:last-child {
   border-top-right-radius: 5px;
-}
-
-@media (min-width: $xs) {
-  img {
-    width: 100px;
-    height: 100px;
-  }
 }
 
 @media (min-width: $md) {

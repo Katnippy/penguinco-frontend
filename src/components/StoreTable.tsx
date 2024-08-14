@@ -31,8 +31,10 @@ export default function StoreTable({
   deleteStock
 }: StoreTableProps) {
   return (
-    <TableContainer component={Paper} sx={{ maxHeight: { md: 450 } }}>
-      <Table aria-label="store-table" stickyHeader sx={{ minWidth: { md: 650 } }}>
+    <TableContainer component={Paper}
+      sx={{ maxWidth: { lg: 1200 }, maxHeight: { md: 450 } }}>
+      <Table aria-label="store-table" stickyHeader
+        sx={{ minWidth: { md: 650, lg: 1000 } }}>
         <TableHead>
           <TableRow>
             <TableCell align="center">Image</TableCell>

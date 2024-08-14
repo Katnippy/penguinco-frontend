@@ -116,15 +116,19 @@ export default function Store() {
         (error === '404' ? <NotFound /> : error === 'Error' ? <Error /> : '')
       }
       {Object.keys(store).length ? (
+        // Container
         <div id="container">
+          {/* Content */}
           <Grid container spacing={0} direction="column"
             justifyContent="center" alignItems="center"
             sx={{ mx: { xs: 1, sm: 0 }, mt: { xs: 2, sm: 6, md: 0 } }}
           >
             <Grid item>
+              {/* Title and return button */}
               <Grid container spacing={2} maxWidth="100vw"
                 sx={{ alignItems: { xs: 'center', sm: 'normal' }, mb: 1 }}
               >
+                {/* Title */}
                 <Grid item xs={6} sm={10} md={11}
                   sx={{ paddingTop: { md: '0 !important' } }}>
                   <Typography
@@ -134,6 +138,7 @@ export default function Store() {
                   Manage {store.name}
                   </Typography>
                 </Grid>
+                {/* Return button */}
                 <Grid item xs={6} sm={2} md={1}>
                   <Grid container justifyContent='center'>
                     <Grid item sx={{ ml: 1 }}>
@@ -153,22 +158,28 @@ export default function Store() {
                 incrementStock={incrementStock} decrementStock={decrementStock}
                 deleteStock={deleteStock}
               />
+              {/* New stock box */}
               <Grid container flexDirection="column" maxWidth="100vw"
                 sx={{ justifyContent: 'center', alignItems: 'center' }}
               >
+                {/* Title */}
                 <Grid item>
                   <Typography variant="h5" gutterBottom
                     sx={{ mt: 3, mr: { xs: 4, sm: 0 }, textAlign: 'center' }}>
                   New stock
                   </Typography>
                 </Grid>
+                {/* New stock form */}
                 <Grid item>
-                  <Box sx={{ border: 1, width: { sm: '60vw', md: '50vw' },
-                    mr: { xs: 4, sm: 0 } }}>
+                  <Box sx={{ border: 1,
+                    width: { sm: '60vw', md: '50vw', lg: '30vw' },
+                    mr: { xs: 4, sm: 0 } }}
+                  >
                     <form onSubmit={addStock}>
                       <FormControl fullWidth>
                         <Grid container sx={{ spacing: 2,
                           my: { xs: 3, sm: 3.5 } }}>
+                          {/* Name input */}
                           <Grid item xs={6} sm={5}>
                             <Grid container sx={{ display: 'flex',
                               justifyContent: 'center' }}>
@@ -185,6 +196,7 @@ export default function Store() {
                               </TextField>
                             </Grid>
                           </Grid>
+                          {/* Quantity input */}
                           <Grid item xs={6} sm={3}>
                             <Grid container sx={{ display: 'flex',
                               justifyContent: 'center' }}>
@@ -197,6 +209,7 @@ export default function Store() {
                               />
                             </Grid>
                           </Grid>
+                          {/* Submit button */}
                           <Grid item xs={12} sm={4}
                             sx={{ display: 'flex' , justifyContent: 'center',
                               mt: { xs: 2, sm: 1.25 }, mb: { xs: -1, sm: 0 } }}
