@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getStores } from '../features/stores/storesSlice';
 import { IStore } from '../common/types';
 import { STOCK_ITEMS } from '../common/consts';
+import Error from './Error';
 import StoresTable from '../components/StoresTable';
 
 export default function Stores() {
@@ -14,11 +15,14 @@ export default function Stores() {
     dispatch(getStores());
   }, []);
 
-  const [shownStores, setShownStores] = useState<Array<IStore>>(stores);
+  const [shownStores, setShownStores] =
+    useState<Array<IStore>>(stores ? stores : []);
 
   // ? Does this need to be a `useEffect()` hook?
   useEffect(() => {
-    setShownStores(stores);
+    if (typeof stores !== 'undefined') {
+      setShownStores(stores);
+    }
   }, [stores]);
 
   const [filterBy, setFilterBy] = useState('name');
@@ -27,10 +31,12 @@ export default function Stores() {
 
   // ? Does this need to be a `useEffect()` hook?
   useEffect(() => {
-    setShownStores(stores.filter((store) =>
-      checkedStockItems.every((checkedStockItem) =>
-        (store.stock.map((item) => STOCK_ITEMS[item.stockItemId! - 1].name)
-          .includes(checkedStockItem)))));
+    if (typeof stores !== 'undefined') {
+      setShownStores(stores.filter((store) =>
+        checkedStockItems.every((checkedStockItem) =>
+          (store.stock.map((item) => STOCK_ITEMS![item.stockItemId! - 1].name)
+            .includes(checkedStockItem)))));
+    }
   }, [checkedStockItems]);
 
   function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
@@ -42,11 +48,11 @@ export default function Stores() {
       // Set `shownStores` to be every store that includes the search value.
       switch (filterBy) {
         case 'name':
-          setShownStores(stores.filter((store) => store.name.toLowerCase()
+          setShownStores(stores!.filter((store) => store.name.toLowerCase()
             .includes(event.target.value.toLowerCase())));
           break;
         case 'address':
-          setShownStores(stores.filter((store) => store.address.toLowerCase()
+          setShownStores(stores!.filter((store) => store.address.toLowerCase()
             .includes(event.target.value.toLowerCase())));
           break;
         // Set `checkedStockItems` to be every store that includes all of (but
@@ -61,32 +67,36 @@ export default function Stores() {
           break;
       }
     } else {
-      setShownStores(stores);
+      setShownStores(stores!);
     }
   }
 
   return (
     <>
-      <h1>PenguinCo Stores</h1>
-      <h2>Filter stores by {filterBy}</h2>
-      <select onChange={handleSelectChange}>
-        <option key="name" value="name">Name</option>
-        <option key="address" value="address">Address</option>
-        <option key="stock" value="stock">Stock</option>
-      </select>
-      {filterBy !== 'stock' ?
-        <input id="filter" onChange={handleFilterChange} /> :
-        STOCK_ITEMS.map(({ id, name }) => (
-          <div key={id}>
-            <input type="checkbox" id={name} name={name} value={name}
-              onChange={handleFilterChange} />
-            <label htmlFor={name}>{name}</label>
-            <br />
-          </div>
-        ))}
-      {!loading && error ? <h2>Error: {error}</h2> : ''}
-      {stores.length ? (
-        <StoresTable shownStores={shownStores} loading={loading} />
+      {!loading && error ? <Error/> : ''}
+      {/* ! The error page is nondescript - needs a custom page! */}
+      {typeof stores === 'undefined' ? <Error/> : ''}
+      {typeof stores !== 'undefined' && stores.length ? (
+        <>
+          <h1>PenguinCo Stores</h1>
+          <h2>Filter stores by {filterBy}</h2>
+          <select onChange={handleSelectChange}>
+            <option key="name" value="name">Name</option>
+            <option key="address" value="address">Address</option>
+            <option key="stock" value="stock">Stock</option>
+          </select>
+          {filterBy !== 'stock' ?
+            <input id="filter" onChange={handleFilterChange} /> :
+            STOCK_ITEMS!.map(({ id, name }) => (
+              <div key={id}>
+                <input type="checkbox" id={name} name={name} value={name}
+                  onChange={handleFilterChange} />
+                <label htmlFor={name}>{name}</label>
+                <br />
+              </div>
+            ))}
+          <StoresTable shownStores={shownStores} loading={loading} />
+        </>
       ) : ''}
     </>
   );

@@ -5,7 +5,7 @@ import storeService from '../../services/stores';
 
 type StoresState = {
   loading: boolean,
-  stores: Array<IStore>,
+  stores: [] | Array<IStore> | undefined,
   error: string,
 }
 
@@ -29,7 +29,7 @@ const storesSlice = createSlice({
     });
     builder.addCase(getStores.fulfilled, (state, action) => {
       state.loading = false;
-      state.stores = action.payload;
+      state.stores = action.payload ? action.payload : undefined;
     });
     builder.addCase(getStores.rejected, (state, action) => {
       state.loading = false;

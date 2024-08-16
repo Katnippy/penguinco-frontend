@@ -50,7 +50,7 @@ export default function StoresTable(
                     <ul>
                       {store.stock.length ? store.stock.map((item) => (
                         <li key={item.id}>
-                          {STOCK_ITEMS[item.stockItemId! - 1].name}:&nbsp;
+                          {STOCK_ITEMS![item.stockItemId! - 1].name}:&nbsp;
                           <i>
                             {item.quantity} unit{item.quantity!== 1 ? 's' : ''}
                           </i>

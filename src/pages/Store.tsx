@@ -35,8 +35,8 @@ export default function Store() {
   // Set `availableStock` to be every stock item not already in stock by
   // filtering out existing item ids.
   let availableStock: Array<IStockItem> = [];
-  if (Object.keys(store).length) {
-    availableStock = STOCK_ITEMS.filter((stockItem) =>
+  if (typeof store !== 'undefined' && Object.keys(store).length) {
+    availableStock = STOCK_ITEMS!.filter((stockItem) =>
       !store.stock.map((item) => item.stockItemId).includes(+stockItem.id)
     );
   }
@@ -48,7 +48,7 @@ export default function Store() {
   // ? Does this need to be a `useEffect()`?
   useEffect(() => {
     setNewStock({
-      id: Object.keys(store).length &&
+      id: typeof store !== 'undefined' && Object.keys(store).length &&
         store.stock.length ? (+store.stock.at(-1)!.id + 1).toString() : '1',
       stockItemId: !availableStock.length ? undefined : +availableStock[0].id,
       quantity: 0,
@@ -64,8 +64,8 @@ export default function Store() {
 
   function incrementStock(itemId: string) {
     const storeToUpdate: IStore = {
-      ...store,
-      stock: [...store.stock.map((item) => item.id === itemId ?
+      ...(store as IStore),
+      stock: [...store!.stock.map((item) => item.id === itemId ?
         { ...item, quantity: item.quantity + 1 } : item)],
       updated: DateTime.now().toISODate()
     };
@@ -74,8 +74,8 @@ export default function Store() {
 
   function decrementStock(itemId: string) {
     const storeToUpdate: IStore = {
-      ...store,
-      stock: [...store.stock.map((item) => item.id === itemId ?
+      ...(store as IStore),
+      stock: [...store!.stock.map((item) => item.id === itemId ?
         { ...item, quantity: item.quantity - 1 } : item)],
       updated: DateTime.now().toISODate()
     };
@@ -84,8 +84,8 @@ export default function Store() {
 
   function deleteStock(itemId: string) {
     const storeToUpdate: IStore = {
-      ...store,
-      stock: [...store.stock.filter((item) => item.id !== itemId)],
+      ...(store as IStore),
+      stock: [...store!.stock.filter((item) => item.id !== itemId)],
       updated: DateTime.now().toISODate()
     };
     updateThenReadStore(storeToUpdate);
@@ -95,8 +95,8 @@ export default function Store() {
     event.preventDefault();
 
     const storeToUpdate: IStore = {
-      ...store,
-      stock: [...store.stock, newStock],
+      ...(store as IStore),
+      stock: [...store!.stock, newStock],
       updated: DateTime.now().toISODate()
     };
     updateThenReadStore(storeToUpdate);
@@ -115,7 +115,9 @@ export default function Store() {
       {!loading && error &&
         (error === '404' ? <NotFound /> : error === 'Error' ? <Error /> : '')
       }
-      {Object.keys(store).length ? (
+      {/* ! The error page is nondescript - needs a custom page! */}
+      {typeof store === 'undefined' ? <Error/> : ''}
+      {typeof store !== 'undefined' && Object.keys(store).length ? (
         // Container
         <div id="container">
           {/* Content */}

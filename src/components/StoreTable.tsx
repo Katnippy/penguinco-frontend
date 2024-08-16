@@ -51,10 +51,10 @@ export default function StoreTable({
               {!loading ?
                 <>
                   <TableCell component="th" scope="row" align="center">
-                    <img src={STOCK_ITEMS[item.stockItemId! - 1].image} />
+                    <img src={STOCK_ITEMS![item.stockItemId! - 1].image} />
                   </TableCell>
                   <TableCell align="center">
-                    {STOCK_ITEMS[item.stockItemId! - 1].name}
+                    {STOCK_ITEMS![item.stockItemId! - 1].name}
                   </TableCell>
                   <TableCell align="center">{item.quantity}</TableCell>
                   <TableCell align="center">

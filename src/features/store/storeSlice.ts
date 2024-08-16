@@ -5,13 +5,13 @@ import storeService from '../../services/stores';
 
 type StoreState = {
   loading: boolean,
-  store: IStore,
+  store: Record<string, never> | IStore | undefined,
   error: string,
 }
 
 const initialState: StoreState = {
   loading: false,
-  store: {}, // ! Needs to be a nullable type!
+  store: {}, // ? Fill in IStore properties?
   error: '',
 };
 
@@ -39,7 +39,7 @@ const storesSlice = createSlice({
       })
       .addCase(getStore.fulfilled, (state, action) => {
         state.loading = false;
-        state.store = action.payload;
+        state.store = action.payload ? action.payload : undefined;
       })
       .addCase(getStore.rejected, (state, action) => {
         state.loading = false;
