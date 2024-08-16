@@ -133,11 +133,9 @@ export default function Store() {
                 {/* Title */}
                 <Grid item xs={6} sm={10} md={11}
                   sx={{ paddingTop: { md: '0 !important' } }}>
-                  <Typography
-                    sx={{ typography: { xs: 'h4', md: 'h3' }, ml: 1 }}
-                    gutterBottom
-                  >
-                  Manage {store.name}
+                  <Typography gutterBottom
+                    sx={{ typography: { xs: 'h4', md: 'h3' }, ml: 1 }}>
+                    Manage {store.name}
                   </Typography>
                 </Grid>
                 {/* Return button */}
@@ -167,16 +165,16 @@ export default function Store() {
               >
                 {/* Title */}
                 <Grid item>
-                  <Typography variant="h5" gutterBottom
-                    sx={{ mt: 3, mr: { xs: 4, sm: 0 }, textAlign: 'center' }}>
+                  <Typography variant="h5" textAlign="center" gutterBottom
+                    sx={{ mt: 3, mr: { xs: 4, sm: 0 } }}>
                   New stock
                   </Typography>
                 </Grid>
                 {/* New stock form */}
                 <Grid item>
-                  <Box id='stock-box' sx={{ border: 1, borderRadius: '5px',
-                    width: { sm: '60vw', md: '50vw', lg: '30vw' },
-                    mr: { xs: 4, sm: 0 } }}
+                  <Box id='stock-box' border={1} borderRadius="5px"
+                    sx={{ width: { sm: '60vw', md: '50vw', lg: '30vw' },
+                      mr: { xs: 4, sm: 0 } }}
                   >
                     <form onSubmit={addStock}>
                       <FormControl fullWidth>
