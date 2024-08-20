@@ -5,8 +5,7 @@ import { DateTime } from 'luxon';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { Button, FormControl, MenuItem }
-  from '@mui/material';
+import { Button, FormControl, MenuItem } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
@@ -172,12 +171,13 @@ export default function Store() {
                 </Grid>
                 {/* New stock form */}
                 <Grid item>
-                  <Box id='stock-box' border={1} borderRadius="5px"
+                  <Box id="box" border={1} borderRadius="5px"
                     sx={{ width: { sm: '60vw', md: '50vw', lg: '30vw' },
                       mr: { xs: 4, sm: 0 } }}
                   >
                     <form onSubmit={addStock}>
                       <FormControl fullWidth>
+                        {/* TODO: Put spacing in component. */}
                         <Grid container sx={{ spacing: 2,
                           my: { xs: 3, sm: 3.5 } }}>
                           {/* Name input */}

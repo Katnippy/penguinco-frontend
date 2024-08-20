@@ -1,5 +1,13 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { FormControlLabel, MenuItem } from '@mui/material';
+import FormGroup from '@mui/material/FormGroup';
+import Checkbox from '@mui/material/Checkbox';
+
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getStores } from '../features/stores/storesSlice';
 import { IStore } from '../common/types';
@@ -39,11 +47,12 @@ export default function Stores() {
     }
   }, [checkedStockItems]);
 
-  function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
+  function handleSelectChange(event: ChangeEvent<HTMLInputElement>) {
     setFilterBy(event.target.value);
   }
 
   function handleFilterChange(event: ChangeEvent<HTMLInputElement>) {
+    console.log(event);
     if (event.target.value !== '') {
       // Set `shownStores` to be every store that includes the search value.
       switch (filterBy) {
@@ -74,28 +83,82 @@ export default function Stores() {
   return (
     <>
       {!loading && error ? <Error/> : ''}
-      {/* ! The error page is nondescript - needs a custom page! */}
+      {/* TODO: The error page is nondescript - needs a custom page. */}
       {typeof stores === 'undefined' ? <Error/> : ''}
       {typeof stores !== 'undefined' && stores.length ? (
         <>
-          <h1>PenguinCo Stores</h1>
-          <h2>Filter stores by {filterBy}</h2>
-          <select onChange={handleSelectChange}>
-            <option key="name" value="name">Name</option>
-            <option key="address" value="address">Address</option>
-            <option key="stock" value="stock">Stock</option>
-          </select>
-          {filterBy !== 'stock' ?
-            <input id="filter" onChange={handleFilterChange} /> :
-            STOCK_ITEMS!.map(({ id, name }) => (
-              <div key={id}>
-                <input type="checkbox" id={name} name={name} value={name}
-                  onChange={handleFilterChange} />
-                <label htmlFor={name}>{name}</label>
-                <br />
-              </div>
-            ))}
-          <StoresTable shownStores={shownStores} loading={loading} />
+          {/* Content */}
+          <Grid container spacing={0} direction="column"
+            justifyContent="center" alignItems="center"
+            sx={{ mx: { xs: 1 }, mt: { xs: 4 } }}
+          >
+            <Grid item>
+              {/* Title */}
+              <Grid container justifyContent="center" maxWidth="100vw">
+                <Grid item>
+                  <Typography gutterBottom
+                    sx={{ typography: { xs: 'h4' }, ml: { xs: -3 },
+                      mb: { xs: 3 } }}
+                  >
+                    PenguinCo Manager
+                  </Typography>
+                </Grid>
+              </Grid>
+              <StoresTable shownStores={shownStores} loading={loading} />
+              <Grid container flexDirection="column" maxWidth="100vw"
+                sx={{ justifyContent: 'center', alignItems: 'center' }}
+              >
+                <Grid item>
+                  <Typography variant="h5" gutterBottom
+                    sx={{ mt: { xs: 3 }, mr: { xs: 4 } }}>
+                    Filter stores
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Box id="box" border={1} borderRadius="5px"
+                    sx={{ width: { xs: '90vw' }, mr: { xs: 4 } }}>
+                    <Grid container spacing={2}
+                      sx={{ mt: { xs: 1 }, mb: { xs: 3 } }}>
+                      <Grid item xs={12}>
+                        <Grid container justifyContent="center">
+                          <TextField select name="filter-by" id="filter-by"
+                            value={filterBy} label="Filter by"
+                            onChange={handleSelectChange}
+                          >
+                            <MenuItem key="name" value="name">Name</MenuItem>
+                            <MenuItem key="address" value="address">
+                              Address
+                            </MenuItem>
+                            <MenuItem key="stock" value="stock">
+                              Stock
+                            </MenuItem>
+                          </TextField>
+                        </Grid>
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Grid container justifyContent="center"
+                          sx={{
+                            paddingLeft: { xs: filterBy === 'stock' ? 1.5 : 0 }
+                          }}>
+                          {filterBy !== 'stock' ?
+                            <TextField type={filterBy} id={filterBy}
+                              onChange={handleFilterChange} /> :
+                          STOCK_ITEMS!.map(({ id, name }) => (
+                            <FormGroup key={id}>
+                              <FormControlLabel control={
+                                <Checkbox id={name} name={name} value={name}
+                                  onChange={handleFilterChange}/>
+                              } label={name}/>
+                            </FormGroup>
+                          ))}
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </>
       ) : ''}
     </>

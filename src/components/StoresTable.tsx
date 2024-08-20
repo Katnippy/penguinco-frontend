@@ -24,7 +24,7 @@ export default function StoresTable(
 ) {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="stores table">
+      <Table sx={{ minWidth: 650 }} aria-label="stores-table">
         <TableHead>
           <TableRow>
             <TableCell align="center">Name</TableCell>
@@ -36,10 +36,7 @@ export default function StoresTable(
         </TableHead>
         <TableBody>
           {shownStores.map((store) => (
-            <TableRow
-              key={store.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 1 } }}
-            >
+            <TableRow key={store.id}>
               {!loading ?
                 <>
                   <TableCell component="th" scope="row" align="center">
