@@ -92,13 +92,13 @@ export default function Stores() {
             justifyContent="center" alignItems="center"
             sx={{ mx: { xs: 1 }, mt: { xs: 4 } }}
           >
-            <Grid item>
+            <Grid item sx={{ mr: { sm: 5 }, ml: { sm: 3 } }}>
               {/* Title */}
               <Grid container justifyContent="center" maxWidth="100vw">
                 <Grid item>
                   <Typography gutterBottom
-                    sx={{ typography: { xs: 'h4' }, ml: { xs: -3 },
-                      mb: { xs: 3 } }}
+                    sx={{ typography: { xs: 'h4' }, mr: { sm: -3 },
+                      ml: { xs: -3 }, mb: { xs: 3 } }}
                   >
                     PenguinCo Manager
                   </Typography>
@@ -110,17 +110,22 @@ export default function Stores() {
               >
                 <Grid item>
                   <Typography variant="h5" gutterBottom
-                    sx={{ mt: { xs: 3 }, mr: { xs: 4 } }}>
+                    sx={{ mt: { xs: 3 }, mr: { xs: 4, sm: 0 } }}>
                     Filter stores
                   </Typography>
                 </Grid>
                 <Grid item>
                   <Box id="box" border={1} borderRadius="5px"
-                    sx={{ width: { xs: '90vw' }, mr: { xs: 4 } }}>
+                    sx={{ width: { xs: '90vw', sm: '60vw' },
+                      mr: { xs: 4, sm: 0 } }}
+                  >
                     <Grid container spacing={2}
                       sx={{ mt: { xs: 1 }, mb: { xs: 3 } }}>
-                      <Grid item xs={12}>
-                        <Grid container justifyContent="center">
+                      <Grid item xs={12} sm={filterBy !== 'stock' ? 4.5 : 12}>
+                        <Grid container sx={{
+                          justifyContent: { xs: 'center',
+                            sm: filterBy !== 'stock' ? 'flex-end' : 'center' }
+                        }}>
                           <TextField select name="filter-by" id="filter-by"
                             value={filterBy} label="Filter by"
                             onChange={handleSelectChange}
@@ -135,11 +140,13 @@ export default function Stores() {
                           </TextField>
                         </Grid>
                       </Grid>
-                      <Grid item xs={12}>
-                        <Grid container justifyContent="center"
-                          sx={{
-                            paddingLeft: { xs: filterBy === 'stock' ? 1.5 : 0 }
-                          }}>
+                      <Grid item xs={12} sm={filterBy !== 'stock' ? 7.5 : 12}>
+                        <Grid container sx={{
+                          justifyContent: { xs: 'center',
+                            sm: filterBy !== 'stock' ? 'flex-start' :
+                              'center' },
+                          pl: { xs: filterBy === 'stock' ? 1.5 : 0 }
+                        }}>
                           {filterBy !== 'stock' ?
                             <TextField type={filterBy} id={filterBy}
                               onChange={handleFilterChange} /> :
