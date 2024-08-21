@@ -23,8 +23,10 @@ export default function StoresTable(
   { shownStores, loading }: StoresTableProps
 ) {
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="stores-table">
+    <TableContainer component={Paper} sx={{ maxWidth: { lg: 1200 } }}>
+      <Table aria-label="stores-table"
+        // sx={{ minWidth: { xs: 650, lg: 1000 } }}>
+        sx={{ minWidth: { lg: 1000 } }}>
         <TableHead>
           <TableRow>
             <TableCell align="center">Name</TableCell>

@@ -94,7 +94,9 @@ export default function Stores() {
             sx={{ mx: { xs: 1, md: 0 }, mt: { xs: 4, md: 0 },
               mb: { md: filterBy !== 'stock' ? 3 : 0.5 } }}
           >
-            <Grid item sx={{ mr: { sm: 5, md: 8 }, ml: { sm: 3, md: 8 } }}>
+            <Grid item sx={{
+              mr: { sm: 5, md: 8, lg: 0 }, ml: { sm: 3, md: 8, lg: 0 }
+            }}>
               {/* Title */}
               <Grid container justifyContent="center" maxWidth="100vw">
                 <Grid item>
@@ -117,15 +119,17 @@ export default function Stores() {
                   </Typography>
                 </Grid>
                 <Grid item>
-                  <Box id="box" border={1} borderRadius="5px"
-                    sx={{ width: { xs: '90vw', sm: '60vw', md: '50vw' },
-                      mr: { xs: 4, sm: 0 } }}
-                  >
+                  <Box id="box" border={1} borderRadius="5px" sx={{
+                    width: { xs: '90vw', sm: '60vw', md: '50vw', lg: '30vw' },
+                    mr: { xs: 4, sm: 0 }
+                  }}>
                     <Grid container spacing={2}
                       sx={{ mt: { xs: 1 }, mb: { xs: 3 } }}>
                       <Grid item xs={12} sm={filterBy !== 'stock' ? 4.5 : 12}
                         md={filterBy === 'name' ? 4.25 :
                           filterBy === 'address' ? 4.5 : 12}
+                        lg={filterBy === 'name' ? 4.5 :
+                          filterBy === 'address' ? 4.75 : 12}
                       >
                         <Grid container sx={{
                           justifyContent: { xs: 'center',
@@ -148,6 +152,8 @@ export default function Stores() {
                       <Grid item xs={12} sm={filterBy !== 'stock' ? 7.5 : 12}
                         md={filterBy === 'name' ? 7.75 :
                           filterBy === 'address' ? 7.5 : 12}
+                        lg={filterBy === 'name' ? 7.5 :
+                          filterBy === 'address' ? 7.25 : 12}
                       >
                         <Grid container sx={{
                           justifyContent: { xs: 'center',
