@@ -68,12 +68,11 @@ export default function StoresTable(
                 </> :
                 <>
                   <SkeletonCell first={true} animation={'wave'}
-                    variant={'rectangular'} />
+                    variant={'text'} />
                   <SkeletonCell animation={'wave'} variant={'text'} />
                   <SkeletonCell animation={'wave'} variant={'text'} />
                   <SkeletonCell animation={'wave'} variant={'rectangular'} />
-                  <SkeletonCell animation={'wave'} variant={'rectangular'} />
-                  <SkeletonCell animation={'wave'} variant={'rectangular'} />
+                  <SkeletonCell animation={'wave'} variant={'text'} />
                 </>}
             </TableRow>
           ))}
