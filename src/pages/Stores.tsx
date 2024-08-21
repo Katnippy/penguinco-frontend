@@ -95,7 +95,7 @@ export default function Stores() {
               mb: { md: filterBy !== 'stock' ? 3 : 0.5 } }}
           >
             <Grid item sx={{
-              mr: { sm: 5, md: 8, lg: 0 }, ml: { sm: 3, md: 8, lg: 0 }
+              mr: { sm: 6.5, md: 0 }, ml: { sm: 4.5, md: 0 }
             }}>
               {/* Title */}
               <Grid container justifyContent="center" maxWidth="100vw">

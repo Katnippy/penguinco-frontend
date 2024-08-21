@@ -25,8 +25,7 @@ export default function StoresTable(
   return (
     <TableContainer component={Paper} sx={{ maxWidth: { lg: 1200 } }}>
       <Table aria-label="stores-table"
-        // sx={{ minWidth: { xs: 650, lg: 1000 } }}>
-        sx={{ minWidth: { lg: 1000 } }}>
+        sx={{ minWidth: { xs: 650, md: 875, lg: 1000 } }}>
         <TableHead>
           <TableRow>
             <TableCell align="center">Name</TableCell>
