@@ -86,18 +86,20 @@ export default function Stores() {
       {/* TODO: The error page is nondescript - needs a custom page. */}
       {typeof stores === 'undefined' ? <Error/> : ''}
       {typeof stores !== 'undefined' && stores.length ? (
-        <>
+        // Container
+        <div id="container">
           {/* Content */}
           <Grid container spacing={0} direction="column"
             justifyContent="center" alignItems="center"
-            sx={{ mx: { xs: 1 }, mt: { xs: 4 } }}
+            sx={{ mx: { xs: 1, md: 0 }, mt: { xs: 4, md: 0 },
+              mb: { md: filterBy !== 'stock' ? 3 : 0.5 } }}
           >
-            <Grid item sx={{ mr: { sm: 5 }, ml: { sm: 3 } }}>
+            <Grid item sx={{ mr: { sm: 5, md: 8 }, ml: { sm: 3, md: 8 } }}>
               {/* Title */}
               <Grid container justifyContent="center" maxWidth="100vw">
                 <Grid item>
                   <Typography gutterBottom
-                    sx={{ typography: { xs: 'h4' }, mr: { sm: -3 },
+                    sx={{ typography: { xs: 'h4', md: 'h3' }, mr: { sm: -3 },
                       ml: { xs: -3 }, mb: { xs: 3 } }}
                   >
                     PenguinCo Manager
@@ -116,12 +118,15 @@ export default function Stores() {
                 </Grid>
                 <Grid item>
                   <Box id="box" border={1} borderRadius="5px"
-                    sx={{ width: { xs: '90vw', sm: '60vw' },
+                    sx={{ width: { xs: '90vw', sm: '60vw', md: '50vw' },
                       mr: { xs: 4, sm: 0 } }}
                   >
                     <Grid container spacing={2}
                       sx={{ mt: { xs: 1 }, mb: { xs: 3 } }}>
-                      <Grid item xs={12} sm={filterBy !== 'stock' ? 4.5 : 12}>
+                      <Grid item xs={12} sm={filterBy !== 'stock' ? 4.5 : 12}
+                        md={filterBy === 'name' ? 4.25 :
+                          filterBy === 'address' ? 4.5 : 12}
+                      >
                         <Grid container sx={{
                           justifyContent: { xs: 'center',
                             sm: filterBy !== 'stock' ? 'flex-end' : 'center' }
@@ -140,7 +145,10 @@ export default function Stores() {
                           </TextField>
                         </Grid>
                       </Grid>
-                      <Grid item xs={12} sm={filterBy !== 'stock' ? 7.5 : 12}>
+                      <Grid item xs={12} sm={filterBy !== 'stock' ? 7.5 : 12}
+                        md={filterBy === 'name' ? 7.75 :
+                          filterBy === 'address' ? 7.5 : 12}
+                      >
                         <Grid container sx={{
                           justifyContent: { xs: 'center',
                             sm: filterBy !== 'stock' ? 'flex-start' :
@@ -166,7 +174,7 @@ export default function Stores() {
               </Grid>
             </Grid>
           </Grid>
-        </>
+        </div>
       ) : ''}
     </>
   );
