@@ -45,16 +45,18 @@ export default function StoresTable(
                   </TableCell>
                   <TableCell align="center">{store.address} </TableCell>
                   <TableCell align="center">
-                    <ul>
-                      {store.stock.length ? store.stock.map((item) => (
-                        <li key={item.id}>
-                          {STOCK_ITEMS![item.stockItemId! - 1].name}:&nbsp;
-                          <i>
-                            {item.quantity} unit{item.quantity!== 1 ? 's' : ''}
-                          </i>
-                        </li>
-                      )) : 'No stock...'}
-                    </ul>
+                    <div className="stock">
+                      <ul>
+                        {store.stock.length ? store.stock.map((item) => (
+                          <li key={item.id}>
+                            {STOCK_ITEMS![item.stockItemId! - 1].name}:&nbsp;
+                            <i>
+                              {item.quantity} unit{item.quantity!== 1 ? 's' : ''}
+                            </i>
+                          </li>
+                        )) : 'No stock...'}
+                      </ul>
+                    </div>
                   </TableCell>
                   <TableCell align="center">
                     <Link to={`/stores/${store.id.toString()}`}>
