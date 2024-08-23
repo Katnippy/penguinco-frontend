@@ -31,65 +31,67 @@ export default function StoreTable({
   deleteStock
 }: StoreTableProps) {
   return (
-    <TableContainer component={Paper}
+    <TableContainer className="table-container" component={Paper}
       sx={{ maxWidth: { lg: 1200 }, maxHeight: { md: 450 } }}>
-      <Table aria-label="store-table" stickyHeader
-        sx={{ minWidth: { md: 650, lg: 1000 } }}>
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Image</TableCell>
-            <TableCell align="center">Name</TableCell>
-            <TableCell align="center">Quantity</TableCell>
-            <TableCell align="center">Add</TableCell>
-            <TableCell align="center">Remove</TableCell>
-            <TableCell align="center">Delete</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {stock.map((item) => (
-            <TableRow key={item.id}>
-              {!loading ?
-                <>
-                  <TableCell component="th" scope="row" align="center">
-                    <img src={STOCK_ITEMS![item.stockItemId! - 1].image} />
-                  </TableCell>
-                  <TableCell align="center">
-                    {STOCK_ITEMS![item.stockItemId! - 1].name}
-                  </TableCell>
-                  <TableCell align="center">{item.quantity}</TableCell>
-                  <TableCell align="center">
-                    <IconButton onClick={() => incrementStock(item.id)}
-                      disabled={item.quantity === MAX_STOCK_QUANTITY ? true :
-                        false}>
-                      <AddIcon />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align="center">
-                    <IconButton onClick={() => decrementStock(item.id)}
-                      disabled={item.quantity === MIN_STOCK_QUANTITY ? true :
-                        false}>
-                      <RemoveIcon />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell align="center">
-                    <IconButton onClick={() => deleteStock(item.id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </> :
-                <>
-                  <SkeletonCell first={true} animation={'wave'}
-                    variant={'rectangular'} />
-                  <SkeletonCell animation={'wave'} variant={'text'} />
-                  <SkeletonCell animation={'wave'} variant={'text'} />
-                  <SkeletonCell animation={'wave'} variant={'rectangular'} />
-                  <SkeletonCell animation={'wave'} variant={'rectangular'} />
-                  <SkeletonCell animation={'wave'} variant={'rectangular'} />
-                </>}
+      <div id="table">
+        <Table aria-label="store-table" stickyHeader
+          sx={{ minWidth: { md: 650, lg: 1000 } }}>
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">Image</TableCell>
+              <TableCell align="center">Name</TableCell>
+              <TableCell align="center">Quantity</TableCell>
+              <TableCell align="center">Add</TableCell>
+              <TableCell align="center">Remove</TableCell>
+              <TableCell align="center">Delete</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody>
+            {stock.map((item) => (
+              <TableRow key={item.id}>
+                {!loading ?
+                  <>
+                    <TableCell component="th" scope="row" align="center">
+                      <img src={STOCK_ITEMS![item.stockItemId! - 1].image} />
+                    </TableCell>
+                    <TableCell align="center">
+                      {STOCK_ITEMS![item.stockItemId! - 1].name}
+                    </TableCell>
+                    <TableCell align="center">{item.quantity}</TableCell>
+                    <TableCell align="center">
+                      <IconButton onClick={() => incrementStock(item.id)}
+                        disabled={item.quantity === MAX_STOCK_QUANTITY ? true :
+                          false}>
+                        <AddIcon />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton onClick={() => decrementStock(item.id)}
+                        disabled={item.quantity === MIN_STOCK_QUANTITY ? true :
+                          false}>
+                        <RemoveIcon />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton onClick={() => deleteStock(item.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </> :
+                  <>
+                    <SkeletonCell first={true} animation={'wave'}
+                      variant={'rectangular'} />
+                    <SkeletonCell animation={'wave'} variant={'text'} />
+                    <SkeletonCell animation={'wave'} variant={'text'} />
+                    <SkeletonCell animation={'wave'} variant={'rectangular'} />
+                    <SkeletonCell animation={'wave'} variant={'rectangular'} />
+                    <SkeletonCell animation={'wave'} variant={'rectangular'} />
+                  </>}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </TableContainer>
   );
 }

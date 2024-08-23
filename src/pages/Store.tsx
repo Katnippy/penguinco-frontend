@@ -139,7 +139,8 @@ export default function Store() {
                 </Grid>
                 {/* Return button */}
                 <Grid item xs={6} sm={2} md={1}>
-                  <Grid container justifyContent='center'>
+                  <Grid container justifyContent='center'
+                    sx={{ width: { xs: '83.5vw', sm: 'auto' } }}>
                     <Grid item sx={{ ml: 1 }}>
                       <Link to={'/stores'}>
                         <Button variant="outlined" sx={{ mt: { md: -0.5 },

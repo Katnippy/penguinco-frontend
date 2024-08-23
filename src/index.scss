@@ -37,6 +37,7 @@ table {
   }
 }
 
+table,
 #box {
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 
               0px 1px 1px 0px rgba(0,0,0,0.14), 
@@ -65,6 +66,16 @@ thead > tr:first-child > th:first-child {
 
 thead > tr:first-child > th:last-child {
   border-top-right-radius: 5px;
+}
+
+@media (max-width: $sm) {
+  .table-container {
+    box-shadow: none !important; // ? Is there a way to replace this?
+    overflow-x: visible !important; // ? Is there a way to replace this?
+  }
+  #table {
+    margin-right: 1rem;
+  }
 }
 
 @media (min-width: $md) {
