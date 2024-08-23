@@ -172,13 +172,12 @@ export default function Store() {
                 </Grid>
                 {/* New stock form */}
                 <Grid item>
-                  <Box id="box" border={1} borderRadius="5px"
-                    sx={{ width: { sm: '60vw', md: '50vw', lg: '30vw' },
-                      mr: { xs: 4, sm: 0 } }}
-                  >
+                  <Box id="box" border={1} borderRadius="5px" sx={{
+                    width: { xs: '90vw', sm: '60vw', md: '50vw', lg: '30vw' },
+                    mr: { xs: 4, sm: 0 }
+                  }}>
                     <form onSubmit={addStock}>
                       <FormControl fullWidth>
-                        {/* TODO: Put spacing in component. */}
                         <Grid container sx={{ spacing: 2,
                           my: { xs: 3, sm: 3.5 } }}>
                           {/* Name input */}
