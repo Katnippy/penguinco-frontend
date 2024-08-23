@@ -143,7 +143,7 @@ export default function Store() {
                     sx={{ width: { xs: '83.5vw', sm: 'auto' } }}>
                     <Grid item sx={{ ml: 1 }}>
                       <Link to={'/stores'}>
-                        <Button variant="outlined" sx={{
+                        <Button id="return" variant="outlined" sx={{
                           mt: { md: -0.5 }, mr: { xs: 14, sm: 0, md: 9 },
                           ml: { sm: -1, md: 1, lg: 3 }, mb: { xs: 2, sm: 0 }
                         }}>
