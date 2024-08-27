@@ -52,7 +52,8 @@ export default function StoreTable({
                 {!loading ?
                   <>
                     <TableCell component="th" scope="row" align="center">
-                      <img src={STOCK_ITEMS![item.stockItemId! - 1].image} />
+                      <img src={STOCK_ITEMS![item.stockItemId! - 1].image}
+                        alt="" />
                     </TableCell>
                     <TableCell align="center">
                       {STOCK_ITEMS![item.stockItemId! - 1].name}
