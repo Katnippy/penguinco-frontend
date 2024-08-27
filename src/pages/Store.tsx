@@ -13,7 +13,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { resetState, getStore, updateStore } from
   '../features/store/storeSlice';
 import { IStockItem, IStock, IStore } from '../common/types';
-import { STOCK_ITEMS } from '../common/consts';
+import { MAX_STOCK_QUANTITY, MIN_STOCK_QUANTITY, STOCK_ITEMS } from '../common/consts';
 import Notification from '../components/Notification';
 import NotFound from './NotFound';
 import Error from './Error';
@@ -205,8 +205,10 @@ export default function Store() {
                                 type="number" id="quantity" label="Quantity"
                                 value={newStock.quantity}
                                 onChange={handleNewStockQuantity}
-                                InputProps=
-                                  {{ inputProps: { min: 0, max: 9999 } }}
+                                InputProps= {{ inputProps: {
+                                  min: MIN_STOCK_QUANTITY,
+                                  max: MAX_STOCK_QUANTITY
+                                } }}
                               />
                             </Grid>
                           </Grid>
