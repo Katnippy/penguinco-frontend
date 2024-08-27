@@ -9,6 +9,14 @@ export function injectStore(store: AppStore) {
   _store = store;
 }
 
+function getErrorMessage(e: unknown) {
+  if (e instanceof Error) {
+    return e.message;
+  } else {
+    return String(e);
+  }
+}
+
 export async function read<T>(url: string): Promise<T | void> {
   let res: Response;
 
@@ -28,7 +36,13 @@ export async function read<T>(url: string): Promise<T | void> {
         throw new Error('Error');
     }
   } catch (e) {
-    console.error('Unhandled error:', e);
+    switch (getErrorMessage(e)) {
+      case '404':
+        throw new Error('404');
+      default:
+        console.error('Unhandled error:', e);
+        throw new Error('Error');
+    }
   }
 }
 
@@ -55,6 +69,10 @@ export async function update(url: string, req: IRequest) {
         break;
     }
   } catch (e) {
-    console.error('Unhandled error:', e);
+    switch (getErrorMessage(e)) {
+      default:
+        console.error('Unhandled error:', e);
+        throw new Error('Error');
+    }
   }
 }
