@@ -13,7 +13,8 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { resetState, getStore, updateStore } from
   '../features/store/storeSlice';
 import { IStockItem, IStock, IStore } from '../common/types';
-import { MAX_STOCK_QUANTITY, MIN_STOCK_QUANTITY, STOCK_ITEMS } from '../common/consts';
+import { MAX_STOCK_QUANTITY, MIN_STOCK_QUANTITY, STOCK_ITEMS }
+  from '../common/consts';
 import Notification from '../components/Notification';
 import NotFound from './NotFound';
 import Error from './Error';
