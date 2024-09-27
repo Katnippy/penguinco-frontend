@@ -2,7 +2,7 @@ import { IRequest, IStore } from '../common/types';
 import { read, update } from './crud';
 
 const baseUrl =
-  'https://app-penguinco-api-uksouth-dev-001.azurewebsites.net/stores';
+  'https://app-penguinco-prod-uksouth-002.azurewebsites.net/stores';
 
 async function readAllStores() {
   return await read<Array<IStore>>(baseUrl);
@@ -16,7 +16,7 @@ async function updateStore(id: number, store: IStore) {
   const req: IRequest = {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(store)
+    body: JSON.stringify(store),
   };
 
   return await update(`${baseUrl}/${id}`, req);
