@@ -15,19 +15,25 @@ import { STOCK_ITEMS } from '../common/consts';
 import SkeletonCell from './SkeletonCell';
 
 type StoresTableProps = {
-  shownStores: Array<IStore>,
-  loading: boolean
+  shownStores: Array<IStore>;
+  loading: boolean;
 };
 
-export default function StoresTable(
-  { shownStores, loading }: StoresTableProps
-) {
+export default function StoresTable({
+  shownStores,
+  loading,
+}: StoresTableProps) {
   return (
-    <TableContainer className="table-container" component={Paper}
-      sx={{ maxWidth: { lg: 1200 } }}>
+    <TableContainer
+      className="table-container"
+      component={Paper}
+      sx={{ maxWidth: { lg: 1200 }, backgroundColor: 'transparent' }}
+    >
       <div id="table">
-        <Table aria-label="stores-table"
-          sx={{ minWidth: { xs: 650, md: 875, lg: 1000 } }}>
+        <Table
+          aria-label="stores-table"
+          sx={{ minWidth: { xs: 650, md: 875, lg: 1000 } }}
+        >
           <TableHead>
             <TableRow>
               <TableCell align="center">Name</TableCell>
@@ -40,7 +46,7 @@ export default function StoresTable(
           <TableBody>
             {shownStores.map((store) => (
               <TableRow key={store.id}>
-                {!loading ?
+                {!loading ? (
                   <>
                     <TableCell component="th" scope="row" align="center">
                       {store.name}
@@ -49,21 +55,24 @@ export default function StoresTable(
                     <TableCell align="center">
                       <div className="stock">
                         <ul>
-                          {store.stock.length ? store.stock.map((item) => (
-                            <li key={item.id}>
-                              {STOCK_ITEMS![item.stockItemId! - 1].name}:&nbsp;
-                              <i>
-                                {item.quantity} unit{item.quantity!== 1 ? 's' :
-                                  ''}
-                              </i>
-                            </li>
-                          )) : 'No stock...'}
+                          {store.stock.length
+                            ? store.stock.map((item) => (
+                                <li key={item.id}>
+                                  {STOCK_ITEMS![item.stockItemId! - 1].name}
+                                  :&nbsp;
+                                  <i>
+                                    {item.quantity} unit
+                                    {item.quantity !== 1 ? 's' : ''}
+                                  </i>
+                                </li>
+                              ))
+                            : 'No stock...'}
                         </ul>
                       </div>
                     </TableCell>
                     <TableCell align="center">
                       <Link to={`/stores/${store.id.toString()}`}>
-                        <IconButton >
+                        <IconButton>
                           <Storefront />
                         </IconButton>
                       </Link>
@@ -71,15 +80,20 @@ export default function StoresTable(
                     <TableCell align="center">
                       {DateTime.fromISO(store.updated).toFormat('dd/MM/yy')}
                     </TableCell>
-                  </> :
+                  </>
+                ) : (
                   <>
-                    <SkeletonCell first={true} animation={'wave'}
-                      variant={'text'} />
+                    <SkeletonCell
+                      first={true}
+                      animation={'wave'}
+                      variant={'text'}
+                    />
                     <SkeletonCell animation={'wave'} variant={'text'} />
                     <SkeletonCell animation={'wave'} variant={'text'} />
                     <SkeletonCell animation={'wave'} variant={'rectangular'} />
                     <SkeletonCell animation={'wave'} variant={'text'} />
-                  </>}
+                  </>
+                )}
               </TableRow>
             ))}
           </TableBody>
