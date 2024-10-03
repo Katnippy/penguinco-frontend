@@ -1,5 +1,4 @@
-import { displayNotification } from
-  '../features/notification/notificationSlice';
+import { displayNotification } from '../features/notification/notificationSlice';
 
 import { IRequest } from '../common/types';
 import { AppStore } from '../app/store';
@@ -57,15 +56,19 @@ export async function update(url: string, req: IRequest) {
         return;
       case 500:
         console.error('PUT 500: ', res);
-        _store.dispatch(displayNotification(
-          'An error has occurred. Please refresh and / or try again!'
-        ));
+        _store.dispatch(
+          displayNotification(
+            'An error has occurred. Please refresh and / or try again!',
+          ),
+        );
         break;
       default:
         console.error('Unhandled error: ', res);
-        _store.dispatch(displayNotification(
-          'An error has occurred. Please refresh and / or try again!'
-        ));
+        _store.dispatch(
+          displayNotification(
+            'An error has occurred. Please refresh and / or try again!',
+          ),
+        );
         break;
     }
   } catch (e) {

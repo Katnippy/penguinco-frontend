@@ -4,10 +4,10 @@ import { IStore } from '../../common/types';
 import storeService from '../../services/stores';
 
 type StoreState = {
-  loading: boolean,
-  store: Record<string, never> | IStore | undefined,
-  error: string,
-}
+  loading: boolean;
+  store: Record<string, never> | IStore | undefined;
+  error: string;
+};
 
 const initialState: StoreState = {
   loading: false,
@@ -16,15 +16,19 @@ const initialState: StoreState = {
 };
 
 // ? Inconsistent terminology (i.e. get = HTTP, but update = CRUD)?
-export const getStore =
-  createAsyncThunk('store/getStore', async (id: number) => {
+export const getStore = createAsyncThunk(
+  'store/getStore',
+  async (id: number) => {
     return await storeService.readStoreById(id);
-  });
+  },
+);
 
-export const updateStore =
-  createAsyncThunk('store/updateStore', async (storeToUpdate: IStore) => {
+export const updateStore = createAsyncThunk(
+  'store/updateStore',
+  async (storeToUpdate: IStore) => {
     return await storeService.updateStore(+storeToUpdate.id, storeToUpdate);
-  });
+  },
+);
 
 export const resetState = createAction('resetState');
 

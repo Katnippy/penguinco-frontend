@@ -21,16 +21,16 @@ injectStore(store);
 const router = createBrowserRouter([
   {
     path: '/stores',
-    element: <Stores />
+    element: <Stores />,
   },
   {
     path: '/stores/:id',
-    element: <Store />
+    element: <Store />,
   },
   {
     path: '*',
-    element: <NotFound />
-  }
+    element: <NotFound />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

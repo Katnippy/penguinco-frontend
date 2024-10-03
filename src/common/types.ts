@@ -1,27 +1,27 @@
 interface IStockItem {
-  id: string,
-  name: string,
-  image: string
+  id: string;
+  name: string;
+  image: string;
 }
 
 interface IStock {
-  id: string,
-  stockItemId: number | undefined,
-  quantity: number
+  id: string;
+  stockItemId: number | undefined;
+  quantity: number;
 }
 
 interface IStore {
-  id: string,
-  name: string,
-  address: string,
-  stock: Array<IStock>,
-  updated: string
+  id: string;
+  name: string;
+  address: string;
+  stock: Array<IStock>;
+  updated: string;
 }
 
 interface IRequest {
-  method: string,
-  headers: { 'Content-Type': string },
-  body: string
+  method: string;
+  headers: { 'Content-Type': string };
+  body: string;
 }
 
 export type { IStore, IStock, IStockItem, IRequest };

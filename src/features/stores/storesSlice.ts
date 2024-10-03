@@ -4,10 +4,10 @@ import { IStore } from '../../common/types';
 import storeService from '../../services/stores';
 
 type StoresState = {
-  loading: boolean,
-  stores: [] | Array<IStore> | undefined,
-  error: string,
-}
+  loading: boolean;
+  stores: [] | Array<IStore> | undefined;
+  error: string;
+};
 
 const initialState: StoresState = {
   loading: false,

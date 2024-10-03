@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 type NotificationState = {
-  notification: string
-}
+  notification: string;
+};
 
 const initialState: NotificationState = {
-  notification: ''
+  notification: '',
 };
 
 const notificationSlice = createSlice({
@@ -17,9 +17,10 @@ const notificationSlice = createSlice({
     },
     hideNotification(state) {
       state.notification = '';
-    }
+    },
   },
 });
 
-export const { displayNotification, hideNotification } = notificationSlice.actions;
+export const { displayNotification, hideNotification } =
+  notificationSlice.actions;
 export default notificationSlice.reducer;
