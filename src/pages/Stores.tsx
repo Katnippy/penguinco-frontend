@@ -28,6 +28,8 @@ export default function Stores() {
   );
 
   // ? Does this need to be a `useEffect()` hook?
+  // When `stores` is updated, set shown stores to be `stores` provided it
+  // isn't undefined.
   useEffect(() => {
     if (typeof stores !== 'undefined') {
       setShownStores(stores);
@@ -38,6 +40,8 @@ export default function Stores() {
   const [checkedStockItems, setCheckedStockItems] = useState<Array<string>>([]);
 
   // ? Does this need to be a `useEffect()` hook?
+  // When filtering by stock items, filter `stores` by stores with those stock
+  // items provided it isn't undefined.
   useEffect(() => {
     if (typeof stores !== 'undefined') {
       setShownStores(
@@ -141,12 +145,14 @@ export default function Stores() {
                 </Grid>
               </Grid>
               <StoresTable shownStores={shownStores} loading={loading} />
+              {/* Filter stores box */}
               <Grid
                 container
                 flexDirection="column"
                 maxWidth="100vw"
                 sx={{ justifyContent: 'center', alignItems: 'center' }}
               >
+                {/* Title */}
                 <Grid item>
                   <Typography
                     variant="h5"
@@ -156,6 +162,7 @@ export default function Stores() {
                     Filter stores
                   </Typography>
                 </Grid>
+                {/* Filter stores form */}
                 <Grid item>
                   <Box
                     id="box"
@@ -171,6 +178,7 @@ export default function Stores() {
                       spacing={2}
                       sx={{ mt: { xs: 1 }, mb: { xs: 3 } }}
                     >
+                      {/* Filter by input */}
                       <Grid
                         item
                         xs={12}
@@ -238,6 +246,7 @@ export default function Stores() {
                               : 12
                         }
                       >
+                        {/* To filter input */}
                         <Grid
                           container
                           sx={{

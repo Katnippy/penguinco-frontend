@@ -64,16 +64,20 @@ export default function StoreTable({
               <TableRow key={item.id}>
                 {!loading ? (
                   <>
+                    {/* Image */}
                     <TableCell component="th" scope="row" align="center">
                       <img
                         src={STOCK_ITEMS![item.stockItemId! - 1].image}
                         alt=""
                       />
                     </TableCell>
+                    {/* Name */}
                     <TableCell align="center">
                       {STOCK_ITEMS![item.stockItemId! - 1].name}
                     </TableCell>
+                    {/* Quantity */}
                     <TableCell align="center">{item.quantity}</TableCell>
+                    {/* Add */}
                     <TableCell align="center">
                       <IconButton
                         onClick={() => incrementStock(item.id)}
@@ -84,6 +88,7 @@ export default function StoreTable({
                         <AddIcon />
                       </IconButton>
                     </TableCell>
+                    {/* Remove */}
                     <TableCell align="center">
                       <IconButton
                         onClick={() => decrementStock(item.id)}
@@ -94,6 +99,7 @@ export default function StoreTable({
                         <RemoveIcon />
                       </IconButton>
                     </TableCell>
+                    {/* Delete */}
                     <TableCell align="center">
                       <IconButton onClick={() => deleteStock(item.id)}>
                         <DeleteIcon />

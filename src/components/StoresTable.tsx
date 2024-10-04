@@ -48,10 +48,13 @@ export default function StoresTable({
               <TableRow key={store.id}>
                 {!loading ? (
                   <>
+                    {/* Name */}
                     <TableCell component="th" scope="row" align="center">
                       {store.name}
                     </TableCell>
+                    {/* Address */}
                     <TableCell align="center">{store.address} </TableCell>
+                    {/* Stock */}
                     <TableCell align="center">
                       <div className="stock">
                         <ul>
@@ -70,6 +73,7 @@ export default function StoresTable({
                         </ul>
                       </div>
                     </TableCell>
+                    {/* Manage */}
                     <TableCell align="center">
                       <Link to={`/stores/${store.id.toString()}`}>
                         <IconButton>
@@ -77,6 +81,7 @@ export default function StoresTable({
                         </IconButton>
                       </Link>
                     </TableCell>
+                    {/* Updated */}
                     <TableCell align="center">
                       {DateTime.fromISO(store.updated).toFormat('dd/MM/yy')}
                     </TableCell>

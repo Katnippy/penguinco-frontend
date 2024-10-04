@@ -56,6 +56,9 @@ export default function Store() {
   });
 
   // ? Does this need to be a `useEffect()`?
+  // When `store` is updated, populate the name input in the new stock box
+  // depending on whether `store` is defined and there are stock items
+  // available.
   useEffect(() => {
     setNewStock({
       id:

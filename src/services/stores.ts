@@ -1,6 +1,7 @@
 import { IRequest, IStore } from '../common/types';
 import { read, update } from './crud';
 
+// ? Make environment variable?
 const baseUrl =
   'https://app-penguinco-prod-uksouth-002.azurewebsites.net/stores';
 

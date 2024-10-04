@@ -1,6 +1,7 @@
 import { IStockItem } from '../common/types';
 import { read } from './crud';
 
+// ? Make environment variable?
 const baseUrl =
   'https://app-penguinco-prod-uksouth-002.azurewebsites.net/items';
 
