@@ -311,6 +311,7 @@ export default function Store() {
                             <Button
                               type="submit"
                               variant="contained"
+                              disabled={availableStock.length ? false : true}
                               sx={{ alignSelf: 'flex-start' }}
                             >
                               Submit
